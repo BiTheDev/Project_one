@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
+<<<<<<< HEAD
 import bcrypt
 from .models import *
 from django.contrib import messages
+=======
+
+>>>>>>> Testing
 # Create your views here.
 
 def home(request):
