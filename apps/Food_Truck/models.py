@@ -48,7 +48,7 @@ class User(models.Model):
 
 class Truck():
 	name = models.CharField(max_length=30)
-	owner = modelsForeignKey(User, related_name='trucks')
+	owner = models.ForeignKey(User, related_name='trucks')
 	location = models.CharField(max_length=255)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
