@@ -5,10 +5,13 @@
 </head>
 <body>
 	<h1>Placeholder for creation page</h1>
-	<form action='/create_truck' method='post'>
+	<form action='/create_truck/' method='post'>
 		{%csrf_token%}
+		<p>Truck name: <input type="text" name="name"></p>
+		<p>Location: <input type="text" name="location"></p>
 		<button type=submit>Make your first truck</button>
 	</form>
+	<a href="/logout/"> Logout</a>
 	<!-- When click on the button, generate a truck placeholder -->
 </body>
 </html>

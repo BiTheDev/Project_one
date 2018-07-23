@@ -6,18 +6,10 @@ class UserManager(models.Manager):
 	def validator(self, postData):
 		EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 		errors = {}
-		if len(postData['first_name']) < 2:
-			errors['first_name'] = 'First name needs at least three letters.'
-		if len(postData['first_name']) < 1:
-			errors['first_name'] = 'First name cannot be blank.'
-		elif re.search('\d+', postData['first_name']):
-			errors['first_name'] ='Name cannot contain number'
-		if len(postData['last_name']) < 1:
-			errors['last_name'] = 'Last name needs at least three letters'
-		if len(postData['last_name']) < 1:
-			errors['last_name'] = 'Last name cannot be blank.'
-		elif re.search('\d+', postData['last_name']):
-			errors['last_name'] ='Name cannot contain number'
+		if len(postData['nickname']) < 1:
+			errors['nickname'] = 'nickname cannot be blank.'
+		elif re.search('\d+', postData['nickname']):
+			errors['nickname'] ='nickname cannot contain number'
 		if len(postData['email']) <1:
 			errors['email'] = 'Email cannot be blank.'
 		elif not EMAIL_REGEX.match(postData['email']):
@@ -34,7 +26,15 @@ class UserManager(models.Manager):
 		existing_users = User.objects.filter(email=postData['email'])
 		if len(existing_users) > 0:
 			errors['email'] = 'Email already registered!'
-
+		return errors
+	def login_validator(self, postData):
+		errors = {}
+		print('login_validator')
+		if len(postData["email"]) <1:
+			errors['email'] = "Please enter your email"
+				
+		if len(postData['password']) < 1:
+			errors['password'] = "Please enter your password"
 		return errors
 
 class User(models.Model):
@@ -43,10 +43,11 @@ class User(models.Model):
 	password = models.CharField(max_length=255)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
-	fund = models.IntegerField()
+	fund = models.IntegerField(default = 1000)
+	has_truck = models.BooleanField(default = False)
 	objects=UserManager()
 
-class Truck():
+class Truck(models.Model):
 	name = models.CharField(max_length=30)
 	owner = models.ForeignKey(User, related_name='trucks')
 	location = models.CharField(max_length=255)
