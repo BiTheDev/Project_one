@@ -1,7 +1,25 @@
-#wrapper{
-	margin-top:200px;
+body{
+	background-image:url('../img/food-login.jpg');
+	background-size: cover;
 }
-input, button{
-	width:30% !important;
-	margin-left:35% !important;
+#wrapper{
+	background:rgba(240, 248, 255,0.8);
+	margin-top:200px;
+	border:2px ridge gray;
+	box-shadow: 1px 1px black;
+	width:30%;
+	margin-left: 35%;
+	padding-top:1%;
+}
+input, button, hr{
+	width:90% !important;
+	margin-left: 5% !important;
+}
+
+hr{
+	border:1px solid gray!important;
+}
+
+li{
+	display: inline;
 }
