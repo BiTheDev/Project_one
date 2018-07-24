@@ -123,7 +123,28 @@ def add_ingredient(request):
 	return redirect('/tools')
 
 def add_product(request):
-	Product.objects.create(product_name=request.POST['product_name'], product_type=request.POST['product_type'], description=request.POST['desc'], sell_price=request.POST['sell_price'])
+	target = Product(product_name=request.POST['product_name'])
+	target.product_type = request.POST['product_type']
+	target.description = request.POST['desc']
+	target.sell_price = request.POST['sell_price']
+	if request.POST['ingredient_B'] == '':
+		target.ingredient_B = None
+	else:
+		target.ingredient_B = Ingredient.objects.get(id=int(request.POST['ingredient_B']))
+	if request.POST['ingredient_C'] == '':
+		target.ingredient_C = None
+	else:
+		target.ingredient_C = Ingredient.objects.get(id=int(request.POST['ingredient_C']))
+	if request.POST['ingredient_D'] == '':
+		target.ingredient_D = None
+	else:
+		target.ingredient_D = Ingredient.objects.get(id=int(request.POST['ingredient_D']))
+	target.ingredient_A = Ingredient.objects.get(id=int(request.POST['ingredient_A']))
+
+
+
+	target.save()
+	
 	return redirect('/tools')
 
 def buy_ingredient(request):
@@ -139,3 +160,33 @@ def buy_ingredient(request):
 		messages.warning(request,"Not enough money!")
 
 	return redirect('/shopping_list')
+
+def cook(request):
+	return render(request, 'cook.html' , {'products':Product.objects.all(), 'ingredients':Ingredient.objects.all()})
+
+def make_food(request):
+	target = Product.objects.get(id=request.POST['id'])
+	target.stock += 1
+	target.ingredient_A.stock -=1
+	if target.ingredient_B != None:
+		target.ingredient_B.stock -=1
+	if target.ingredient_C != None:
+		target.ingredient_C.stock -=1
+	if target.ingredient_D != None:
+		target.ingredient_D.stock -=1
+	target.save()
+	return redirect('/cook')
+
+def sell(request):
+	revenue = 0
+	targets = Product.objects.exclude(stock = 0)
+	user = User.objects.get(id=request.session['id'])
+	for target in targets:
+		print(target.product_name)
+		revenue = target.stock * target.sell_price
+		target.stock = 0
+		target.save()
+		user.fund += revenue
+
+	user.save()
+	return redirect('/dashboard')
