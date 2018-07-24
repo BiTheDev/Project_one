@@ -15,6 +15,7 @@ urlpatterns =[
 	url(r'add_ingredient$', views.add_ingredient),
 	url(r'add_product$', views.add_product),
 	url(r'buy_ingredient$', views.buy_ingredient),
-	
-		
+	url(r'cook$', views.cook),
+	url(r'make_food$', views.make_food),
+	url(r'sell$', views.sell),
 ]
