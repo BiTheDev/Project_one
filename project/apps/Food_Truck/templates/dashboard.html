@@ -12,6 +12,7 @@
 	<div id="mySidenav" class="sidenav bg-dark">
   		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   		<a href="/shopping_list">Shop list</a>
+  		<a href="/cook">Prepare Food</a>
   		<a href="#">Settings</a>
   		<a href="/tools"> Developer Tools</a>
   		<a href="/logout/"> Logout</a>
@@ -23,6 +24,7 @@
 		</nav>
 		<div id="main">
 			<h1>Welcome!</h1>
+			<p>Your current fund is : $ {{user.fund}}</p>
 			<div id="weather">
 			<p>Currernt temp: {{temp}}</p>
 			<p>Current Humidity: {{humidity}}</p>
@@ -31,5 +33,10 @@
 		<div id="truck">
 			Your Truck
 		</div>
+		<form action='/sell' method='post'>
+			{%csrf_token%}
+			<button>SELL ALL PRODUCTS</button>
+			
+		</form>
 </body>
 </html>
