@@ -100,3 +100,31 @@ def logout(request):
 	request.session.clear()
 
 	return redirect('/')
+
+def buy_menu(request):
+	return render(request, 'buy.html', {'ingredients': Ingredient.objects.all(), 'user':User.objects.get(id=request.session['id'])})
+
+def tools(request):
+	return render(request, 'tools.html', {'ingredients':Ingredient.objects.all(), 'products':Product.objects.all()})
+
+def add_ingredient(request):
+	Ingredient.objects.create(ingredient_name=request.POST['ingredient_name'], ingredient_type=request.POST['ingredient_type'], description=request.POST['desc'], buy_price=request.POST['buy_price'])
+	return redirect('/tools')
+
+def add_product(request):
+	Product.objects.create(product_name=request.POST['product_name'], product_type=request.POST['product_type'], description=request.POST['desc'], sell_price=request.POST['sell_price'])
+	return redirect('/tools')
+
+def buy_ingredient(request):
+	target = Ingredient.objects.get(id=request.POST['id'])
+	user = User.objects.get(id=request.session['id'])
+	if user.fund - target.buy_price > 0:
+		target.stock += 1
+		user.fund -= target.buy_price
+		target.save()
+		user.save()	
+	else:
+		print('not enough fund')
+		messages.warning(request,"Not enough money!")
+
+	return redirect('/shopping_list')
