@@ -8,7 +8,12 @@
 	<form action='/create_truck/' method='post'>
 		{%csrf_token%}
 		<p>Truck name: <input type="text" name="name"></p>
-		<p>Location: <input type="text" name="location"></p>
+		<p>Location: <select name='location'>
+			{%for location in locations%}
+			<option value='{{location.id}}'>{{location.location_name}}</option>
+			{%endfor%}
+		</select></p>
+		
 		<button type=submit>Make your first truck</button>
 	</form>
 	<a href="/logout/"> Logout</a>
