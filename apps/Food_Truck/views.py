@@ -152,13 +152,38 @@ def cook(request):
 def make_food(request):
 	target = Product.objects.get(id=request.POST['id'])
 	target.stock += 1
-	target.ingredient_A.stock -=1
+	if target.ingredient_A.stock-1 == -1:
+		messages.warning(request,"Not enough ingredients!")
+		return redirect('/cook')
+	else:
+		target.ingredient_A.stock -=1
+		target.ingredient_A.save()
+
+	
 	if target.ingredient_B != None:
-		target.ingredient_B.stock -=1
+		if target.ingredient_B.stock-1 == -1:
+			messages.warning(request,"Not enough ingredients!")
+			return redirect('/cook')
+		else:
+			target.ingredient_B.stock -=1
+			target.ingredient_B.save()
+	
 	if target.ingredient_C != None:
-		target.ingredient_C.stock -=1
+		if target.ingredient_B.stock-1 == -1:
+			messages.warning(request,"Not enough ingredients!")
+			return redirect('/cook')
+		else:
+			target.ingredient_C.stock -=1
+			target.ingredient_C.save()
+	
 	if target.ingredient_D != None:
-		target.ingredient_D.stock -=1
+		if target.ingredient_B.stock-1 == -1:
+			messages.warning(request,"Not enough ingredients!")
+			return redirect('/cook')
+		else: 
+			target.ingredient_D.stock -=1
+			target.ingredient_D.save()
+	
 	target.save()
 	return redirect('/cook')
 
