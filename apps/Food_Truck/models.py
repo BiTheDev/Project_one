@@ -43,7 +43,7 @@ class User(models.Model):
 	password = models.CharField(max_length=255)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
-	fund = models.IntegerField(default = 1000)
+	fund = models.FloatField(default = 1000)
 	has_truck = models.BooleanField(default = False)
 	objects=UserManager()
 
@@ -54,10 +54,20 @@ class Truck(models.Model):
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
 
+class Ingredient(models.Model):
+	ingredient_name = models.CharField(max_length=255)
+	ingredient_type = models.CharField(max_length=255)
+	buy_price = models.FloatField()
+	stock= models.IntegerField(default=0)
+	description = models.CharField(max_length=255, null=True)
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now = True)
 
 class Product(models.Model):
 	product_name = models.CharField(max_length=255)
 	product_type = models.CharField(max_length=255)
-	price = models.FloatField()
+	sell_price = models.FloatField()
+	stock= models.IntegerField(default=0)
+	description = models.CharField(max_length=255, null=True)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
