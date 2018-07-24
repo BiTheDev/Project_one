@@ -13,7 +13,7 @@ def home(request):
 
 def register_page(request):
 
-	return render(request, 'register.html')
+	return render(request, 'register.html', )
 
 def register(request):
 	errors = User.objects.validator(request.POST)
@@ -64,13 +64,13 @@ def login(request):
 	
 
 def create(request):
-	return render(request, 'create.html')
+	return render(request, 'create.html', {'locations': Location.objects.all()})
 
 def create_truck(request):
 	Truck.objects.create(
 		name = request.POST['name'],
 		owner = User.objects.get(id = request.session['id']),
-		location = request.POST['location']
+		location = Location.objects.get(id=request.POST['location'])
 		)
 	this_user = User.objects.get(id = request.session['id'])
 	this_user.has_truck = True
@@ -83,7 +83,7 @@ def dashboard(request):
 	city = 'Seattle'
 	city_weather = requests.get(url.format(city)).json()
 	context = {
-        'city' : city,
+        'city' : User.objects.get(id=request.session['id']).trucks.first().location.location_name,
         'temperature' : city_weather['main']['temp'],
         'description' : city_weather['weather'][0]['description'],
         'icon' : city_weather['weather'][0]['icon'],

@@ -47,12 +47,23 @@ class User(models.Model):
 	has_truck = models.BooleanField(default = False)
 	objects=UserManager()
 
+class Location(models.Model):
+	location_name = models.CharField(max_length=255)
+	desc = models.CharField(max_length=255, null=True)
+	demand_breakfast = models.IntegerField(default = 50)
+	demand_meal = models.IntegerField(default = 50)
+	demand_drink = models.IntegerField(default = 50)
+	demand_snack = models.IntegerField(default = 50)
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now = True)
+
 class Truck(models.Model):
 	name = models.CharField(max_length=30)
 	owner = models.ForeignKey(User, related_name='trucks')
-	location = models.CharField(max_length=255)
+	location = models.ForeignKey(Location, related_name='trucks_in_location')
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
+	level = models.IntegerField(default=1)
 
 class Ingredient(models.Model):
 	ingredient_name = models.CharField(max_length=255)
@@ -72,6 +83,8 @@ class Product(models.Model):
 	ingredient_B = models.ForeignKey(Ingredient, related_name='products_b', null=True)
 	ingredient_C = models.ForeignKey(Ingredient, related_name='products_c', null=True)
 	ingredient_D = models.ForeignKey(Ingredient, related_name='products_d', null=True)
+	level = models.IntegerField(default=1)
 	description = models.CharField(max_length=255, null=True)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
+
