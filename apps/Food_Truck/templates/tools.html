@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Developer Tools</title>
+	<style type="text/css">
+		.container{
+			width: 40%;
+			display: inline-block;
+		}
+	</style>
+</head>
+<body>
+	<div class='container'>
+		<p>Ingredient Maker</p>
+		<form action='/add_ingredient' method='post'>
+			{%csrf_token%}
+			<p>Name</p>
+			<input type="text" name="ingredient_name">
+			<p>Type</p>
+			<input type="text" name="ingredient_type">
+			<p>Desc</p>
+			<input type="text" name="desc">
+			<p>Price (must be number)</p>
+			<input type="number" step='any' name="buy_price">
+			<p></p><button type='submit'>Create Ingredient</button>
+		</form>
+		<p>Ingredient currently in database</p>
+		<table>
+			<thead>
+				<tr>
+					<td>Name</td>
+					<td>Desc</td>
+					<td>Type</td>
+					<td>Buy Price</td>
+				</tr>
+			</thead>
+			<tbody>
+				{%for ingredient in ingredients%}
+				<tr>
+					<td>{{ingredient.ingredient_name}}</td>
+					<td>{{ingredient.description}}</td>
+					<td>{{ingredient.ingredient_type}}</td>
+					<td>{{ingredient.buy_price}}</td>
+				</tr>
+				{%endfor%}
+			</tbody>
+		</table>
+	</div>
+		<div class='container'>
+		<p>Product Maker</p>
+		<form action='/add_product' method='post'>
+			{%csrf_token%}
+			<p>Name</p>
+			<input type="text" name="product_name">
+			<p>Type</p>
+			<input type="text" name="product_type">
+			<p>Desc (can be null, but put something funny in here)</p>
+			<input type="text" name="desc">
+			<p>Price (must be number)</p>
+			<input type="number" step='any' name="sell_price">
+			<p></p><button type='submit'>Create Product</button>
+		</form>
+		<p>Product currently in database</p>
+		<table>
+			<thead>
+				<tr>
+					<td>Name</td>
+					<td>Desc</td>
+					<td>Type</td>
+					<td>Sell Price</td>
+				</tr>
+			</thead>
+			<tbody>
+				{%for product in products%}
+				<tr>
+					<td>{{product.product_name}}</td>
+					<td>{{product.description}}</td>
+					<td>{{product.product_type}}</td>
+					<td>{{product.sell_price}}</td>
+				</tr>
+				{%endfor%}
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

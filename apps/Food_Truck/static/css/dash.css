@@ -25,15 +25,39 @@ h1{
 #weather {
     display: block;
     border:1px solid black;
-    width: 10%;
-    padding-top:0.5%;
-    padding-left:0.7%; 
+    width:50%;
+    padding-left:5%; 
     vertical-align: top;
     border-radius: 25px;
     box-shadow: 1px 2px gray;
     background-color: #b3e6ff;
     font-family: 'Concert One', cursive;
     font-size: 17px;
+    height:50px;
+}
+#weather p, #weather img {
+    display: inline-block;
+}
+
+#truck {
+    border:2px groove gray;
+    width:80%;
+    margin-left:10%;
+    text-align: center;
+}
+
+#cooking{
+    border: 1px solid black;
+    width:98%;
+    height: 200px;
+    margin: 1% 0 1% 1%;
+    background-color:#f2ffe6;
+}
+.card{
+    display: inline-block !important;
+    width:19%;
+    margin-bottom: 1%;
+    box-shadow: 1px 2px gray;
 }
 /* The navigation menu links */
 .sidenav a {

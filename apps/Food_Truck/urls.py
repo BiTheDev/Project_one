@@ -9,5 +9,12 @@ urlpatterns =[
 	url(r'register/$', views.register),
 	url(r'create_truck/$', views.create_truck),
 	url(r'dashboard/$', views.dashboard),
-	url(r'logout/$', views.logout)
+	url(r'logout/$', views.logout),
+	url(r'shopping_list$', views.buy_menu),
+	url(r'tools/$', views.tools),
+	url(r'add_ingredient$', views.add_ingredient),
+	url(r'add_product$', views.add_product),
+	url(r'buy_ingredient$', views.buy_ingredient),
+	
+		
 ]
