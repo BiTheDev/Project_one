@@ -1,54 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Cook Room</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/cook.css' %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 <p>Anyone can cook.</p>
-<i style='margin-left: 20px; text-decoration;'> - Auguste Gusteau</i>
-
+<p style='margin-left: 20px; text-decoration;'><i> - Auguste Gusteau</i></p> 
+<a href="/dashboard/">Back to Your truck</a>
 		<p>Product currently in database</p>
 		{% if messages %}
       		{% for message in messages %}
       			{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
-      				<p style="color : red;">{{message}}</p>
+      				<p style="color : red">{{message}}</p>
       			{% endif %}
       		{% endfor %}
-    	{% endif %}
-		<table>
-			<thead>
+		{% endif %}
+		<h2>Recipes</h2>
+		<table class="table" id="Recipe">
+			<thead class="bg-success">
 				<tr>
-					<td>Name</td>
-					<td>Desc</td>
-					<td>Type</td>
-					<td>Sell Price</td>
-					<td>Action</td>
-					<td>Stock</td>
+					<th>Name</th>
+					<th>Desc</th>
+					<th>Type</th>
+					<th>Sell Price</th>
+					<th>Action</th>
+					<th>Stock</th>
 				</tr>
 			</thead>
 			<tbody>
 				{%for product in products%}
-				<tr style='text-align: center'>
+				<tr>
 					<td>{{product.product_name}}</td>
 					<td>{{product.description}}</td>
 					<td>{{product.product_type}}</td>
 					<td>{{product.sell_price}}</td>
-					<form action='/make_food' method='post'>
+					<td><form action='/make_food' method='post'>
 						{%csrf_token%}
-						<td><button>Make</button></td>
 						<input type="hidden" name="id" value='{{product.id}}'>
-					</form>
+						<button>Make</button>
+					</form></td>
 					<td>{{product.stock}}</td>
 				</tr>
 				{%endfor%}
 			</tbody>
 		</table>
 		<h2>Inventory</h2>
-		<table>
-		<thead>
+		<table class="table" id="Inventory">
+		<thead class="bg-info">
 			<tr>
-				<td>Name</td>
-				<td>Stock</td>
+				<th>Name</th>
+				<th>Stock</th>
 			</tr>
 		</thead>
 		<tbody>
