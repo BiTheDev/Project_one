@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Dashboard</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/dash.css' %}">
+	<script type="text/javascript" src="{% static 'JS/dash.js' %}"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Concert+One" rel="stylesheet">
+</head>
+<body onload="currentTime()">
+	<div id="mySidenav" class="sidenav bg-dark">
+  		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  		<a href="/shopping_list">Go Shopping</a>
+  		<a href="/cook">Prepare Food</a>
+  		<a href="#">Settings</a>
+  		<a href="/tools"> Developer Tools</a>
+  		<a href="/logout/"> Logout</a>
+	</div>
+
+		<!-- Use any element to open the sidenav -->
+		<nav class="navbar navbar-dark bg-dark">
+			<span onclick="openNav()">&#9776;</span>
+			<div id="weather">
+            <img src="http://openweathermap.org/img/w/{{ icon }}.png" alt="Image">
+			<p>Location: {{city}},</p>
+			<p>Currernt temp: {{temperature}}°F,</p>
+			<p>Sky: {{description}},</p>
+			<p>Date: {{date}}, server time: <b id="time"></b></p> 
+			</div>
+		</nav>
+		<div id="main">
+			<h1>Welcome!</h1>
+		</div>
+		<div id="truck" class="bg-success">
+			<p>Your Shop</p>
+			<div id="cooking">
+				<p>Cooking Area</p>
+			</div>
+			<div class="card">
+				<h5>Item Name</h5>
+				<p>desc</p>
+				<p>Number</p>
+			</div>
+			<div class="card">
+				<h5>Item Name</h5>
+				<p>desc</p>
+				<p>Number</p>
+			</div>
+			<div class="card">
+				<h5>Item Name</h5>
+				<p>desc</p>
+				<p>Number</p>
+			</div>
+			<div class="card">
+				<h5>Item Name</h5>
+				<p>desc</p>
+				<p>Number</p>
+			</div>
+			<div class="card">
+				<h5>Item Name</h5>
+				<p>desc</p>
+				<p>Number</p>
+			</div>
+		</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Store</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/buy.css' %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+		<h3>Ingredient Avaliable for Sell</h3>
+		<a href="/dashboard/">Bck to Dashboard</a>
+		<p>Current fund avaliable: {{user.fund}}</p>
+			{% if messages %}
+				{% for message in messages %}
+					{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+						<p style='color:red; font-weight: bold'>{{message}}</p>
+					{% endif %}
+				{%endfor%}
+			{%endif%}
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th>Name</th>
+					<th>Desc</th>
+					<th>Buy Price</th>
+					<th>Action</th>
+					<th>Stock</th>
+				</tr>
+			</thead>
+			<tbody>
+				{%for ingredient in ingredients%}
+				<tr>
+					<td>{{ingredient.ingredient_name}}</td>
+					<td>{{ingredient.description}}</td>
+					<td>{{ingredient.buy_price}}</td>
+					<td><form action='buy_ingredient' method='post'>
+						{%csrf_token%}
+						<input type="hidden" name='id' value="{{ingredient.id}}">
+						<button type='submit' class="btn-info">Buy!</button>
+					</form></td>
+					<td>{{ingredient.stock}}</td>
+				</tr>
+				{%endfor%}
+			</tbody>
+		</table>
+</body>
+</html>
