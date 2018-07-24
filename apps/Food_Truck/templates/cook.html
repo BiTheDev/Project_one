@@ -8,6 +8,13 @@
 <i style='margin-left: 20px; text-decoration: '> - Auguste Gusteau</i>
 
 		<p>Product currently in database</p>
+		{% if messages %}
+      		{% for message in messages %}
+      			{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+      				<p style="color : red;">{{message}}</p>
+      			{% endif %}
+      		{% endfor %}
+    	{% endif %}
 		<table>
 			<thead>
 				<tr>
