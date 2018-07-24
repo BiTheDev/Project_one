@@ -1,7 +1,7 @@
 /* The side navigation menu */
 .sidenav {
     height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
+    width: 15%; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
@@ -21,12 +21,12 @@ span{
 }
 h1{
     display: inline;
+    margin-left:15% !important;
 }
 #weather {
-    display: block;
+    display: inline-block;
     border:1px solid black;
-    width:50%;
-    padding-left:5%; 
+    padding:0 2%; 
     vertical-align: top;
     border-radius: 25px;
     box-shadow: 1px 2px gray;
@@ -41,9 +41,10 @@ h1{
 
 #truck {
     border:2px groove gray;
-    width:80%;
-    margin-left:10%;
+    width:70%;
+    margin:3% 0 0 15%;
     text-align: center;
+    border-radius: 25px;
 }
 
 #cooking{
