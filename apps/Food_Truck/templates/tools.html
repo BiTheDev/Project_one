@@ -53,10 +53,15 @@
 			{%csrf_token%}
 			<p>Name</p>
 			<input type="text" name="product_name">
-			<p>Type</p>
-			<input type="text" name="product_type">
-			<p>Desc (can be null, but put something funny in here)</p>
+			<p>Type (used to match demand type)</p>
+			<select name='product_type'>
+				<option value='breakfast'>Breakfast</option>
+				<option value='meal'>Lunch and Dinner (aka meal)</option>
+				<option value='snack'>Snack (and side)</option>
+				<option value='drink'>Drink</option>
+			</select>
 
+			<p>Desc (can be null, but put something funny in here)</p>
 			<input type="text" name="desc">
 			<p>Price (must be number)</p>
 			<input type="number" step='any' name="sell_price">
