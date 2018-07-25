@@ -12,6 +12,7 @@
 		</thead>
 		<tbody>
 		{%for upgrade in upgrades%}
+		<tr>
 			<td>{{upgrade.name}}</td>
 				{%if upgrade.activate == False%}
 				<td>No</td>
@@ -20,6 +21,7 @@
 				<td>Yes</td>
 				{%endif%}
 		{%endfor%}
+		</tr>
 	</tbody>
 	</table>
 	<h2>Development Tools (make new upgrade):</h2>
