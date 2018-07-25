@@ -86,7 +86,8 @@ def dashboard(request):
         'description' : city_weather['weather'][0]['description'],
         'icon' : city_weather['weather'][0]['icon'],
 		'date' : now.strftime("%Y/%m/%d"),
-		'locations' : Location.objects.all()
+		'locations' : Location.objects.all(),
+		'user': User.objects.get(id=request.session['id'])
     }
 	request.session['truck_id'] = User.objects.get(id=request.session['id']).trucks.first().id
 	return render(request, 'dashboard.html', context)
@@ -108,6 +109,7 @@ def add_ingredient(request):
 	return redirect('/tools')
 
 def add_product(request):
+	cost = 0
 	target = Product(product_name=request.POST['product_name'])
 	target.product_type = request.POST['product_type']
 	target.description = request.POST['desc']
@@ -116,16 +118,20 @@ def add_product(request):
 		target.ingredient_B = None
 	else:
 		target.ingredient_B = Ingredient.objects.get(id=int(request.POST['ingredient_B']))
+		cost += target.ingredient_B.buy_price
 	if request.POST['ingredient_C'] == '':
 		target.ingredient_C = None
 	else:
 		target.ingredient_C = Ingredient.objects.get(id=int(request.POST['ingredient_C']))
+		cost += target.ingredient_C.buy_price
 	if request.POST['ingredient_D'] == '':
 		target.ingredient_D = None
 	else:
 		target.ingredient_D = Ingredient.objects.get(id=int(request.POST['ingredient_D']))
+		cost += target.ingredient_D.buy_price
 	target.ingredient_A = Ingredient.objects.get(id=int(request.POST['ingredient_A']))
-
+	cost += target.ingredient_A.buy_price
+	target.cost = cost
 
 
 	target.save()
@@ -240,6 +246,7 @@ def make10_food(request):
 
 def sell(request):
 	revenue = 0
+	target_report = Product.objects.exclude(stock = 0)
 	target_breakfast = Product.objects.exclude(stock = 0).filter(product_type='breakfast')
 	target_meal = Product.objects.exclude(stock = 0).filter(product_type='meal')
 	target_snack = Product.objects.exclude(stock = 0).filter(product_type='snack')
@@ -247,10 +254,23 @@ def sell(request):
 	user = User.objects.get(id=request.session['id'])
 	location = User.objects.get(id=request.session['id']).trucks.first().location
 	
+	# data to keep track of to generate report
+	cost = 0
+	revenue_report = 0
+	profit = 0
+	item_sold = 0
+	item_unsold = 0
+
+	for items in target_report:
+		item_unsold += items.stock
+
 	for target in target_breakfast:
 		if location.demand_breakfast > 0:
 			location.demand_breakfast -= target.stock
 			revenue = target.stock * target.sell_price
+			revenue_report += target.stock * target.sell_price
+			cost = target.stock * target.cost
+			item_sold += target.stock
 			target.stock = 0
 			target.save()
 			user.fund += revenue
@@ -259,6 +279,9 @@ def sell(request):
 		if location.demand_meal > 0:
 			location.demand_meal -= target.stock
 			revenue = target.stock * target.sell_price
+			revenue_report += target.stock * target.sell_price
+			cost = target.stock * target.cost
+			item_sold += target.stock
 			target.stock = 0
 			target.save()
 			user.fund += revenue
@@ -268,6 +291,9 @@ def sell(request):
 		if location.demand_snack > 0:
 			location.demand_snack -= target.stock
 			revenue = target.stock * target.sell_price
+			revenue_report += target.stock * target.sell_price
+			cost = target.stock * target.cost
+			item_sold += target.stock
 			target.stock = 0
 			target.save()
 			user.fund += revenue
@@ -277,11 +303,17 @@ def sell(request):
 		if location.demand_drink > 0:
 			location.demand_drink -= target.stock
 			revenue = target.stock * target.sell_price
+			revenue_report += target.stock * target.sell_price
+			cost = target.stock * target.cost
+			item_sold += target.stock
 			target.stock = 0
 			target.save()
 			user.fund += revenue		
 
-
+	item_unsold -= item_sold
+	profit = revenue - cost
+	Report.objects.create(owner=user ,cost=cost, profit=profit, revenue=revenue,item_sold=item_sold,item_unsold=item_unsold)
+	print(Report.objects.last().__dict__)
 	user.save()
 
 	# New demand system will try to match the demand type vs the product type. Product will only sell if there's demand for that type of product.
