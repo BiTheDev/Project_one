@@ -5,12 +5,16 @@
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/cook.css' %}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|PT+Sans+Narrow" rel="stylesheet">
 </head>
 <body>
-<p>Anyone can cook.</p>
-<p style='margin-left: 20px; text-decoration;'><i> - Auguste Gusteau</i></p> 
-<a href="/dashboard/">Back to Your truck</a>
-		<p>Product currently in database</p>
+	<div id="link">
+		<a href="/dashboard/">Back to Your truck</a>
+	</div>
+	<div id="quote">
+			<p>Anyone can cook.</p>
+			<p style='margin-left: 20px; text-decoration;'><i> - Auguste Gusteau</i></p> 
+		</div>
 		{% if messages %}
       		{% for message in messages %}
       			{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
@@ -37,20 +41,21 @@
 					<td>{{product.description}}</td>
 					<td>{{product.product_type}}</td>
 					<td>{{product.sell_price}}</td>
-					<td><form action='/make_food' method='post'>
-						{%csrf_token%}
-						<input type="hidden" name="id" value='{{product.id}}'>
-<<<<<<< HEAD
-						<button>Make</button>
-					</form></td>
-=======
-					</form>
-					<form action='/make10_food' method='post'>
-						{%csrf_token%}
-						<td><button>Make 10</button></td>
-						<input type="hidden" name="id" value='{{product.id}}'>
-					</form>
->>>>>>> TuesdayPedro
+					<td>
+						<ul>
+							<li><form action='/make_food' method='post'></li>
+									{%csrf_token%}
+									<input type="hidden" name="id" value='{{product.id}}'>
+									<button>Make</button>
+								</form>
+							<li><form action='/make10_food' method='post'>
+									{%csrf_token%}
+									<button>Make 10</button>
+									<input type="hidden" name="id" value='{{product.id}}'>
+									</form>
+							</li>
+						</ul>	
+					</td>
 					<td>{{product.stock}}</td>
 				</tr>
 				{%endfor%}
