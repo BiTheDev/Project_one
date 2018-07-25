@@ -6,6 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/cook.css' %}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|PT+Sans+Narrow" rel="stylesheet">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'JS/cook.js' %}"></script>
 </head>
 <body>
 	<div id="link">
@@ -18,7 +20,7 @@
 		{% if messages %}
       		{% for message in messages %}
       			{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
-      				<p style="color : red">{{message}}</p>
+      				<p style="color: red;">{{message}}</p>
       			{% endif %}
       		{% endfor %}
 		{% endif %}
@@ -77,8 +79,13 @@
 		</tbody>
 		</table>
 		</div>
-		<div id="fridge">
-
+		<button id="fridge-open"></button>
+		<div id="fridge" style="display: none;">
+				<button id="close">Close Fridge</button>
+			<div class="bottom_card">
+				<h5>Item name</h5>
+				<p>DESC</p>
+			</div>
 		</div>
 	</div>
 </body>
