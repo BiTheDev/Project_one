@@ -85,6 +85,23 @@ class Product(models.Model):
 	ingredient_D = models.ForeignKey(Ingredient, related_name='products_d', null=True)
 	level = models.IntegerField(default=1)
 	description = models.CharField(max_length=255, null=True)
+	cost = models.FloatField()
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
 
+class Report(models.Model):
+	owner = models.ForeignKey(User, related_name='reports', null=True)
+	cost = models.FloatField()
+	profit = models.FloatField()
+	revenue = models.FloatField()
+	item_sold = models.IntegerField()
+	item_unsold = models.IntegerField()
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now = True)
+
+class Upgrade(models.Model):
+	name = models.CharField(max_length=255)
+	owner = models.ForeignKey(User, related_name ='upgrades')
+	activate = models.BooleanField(default=False)
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now = True)
