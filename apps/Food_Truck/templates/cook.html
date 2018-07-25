@@ -23,7 +23,7 @@
       		{% endfor %}
 		{% endif %}
 	<hr>
-			{%for product in products%}
+			{% for product in products %}
 			<div class="card">
 				<h5>{{product.product_name}}</h5>
 				<p>Ingredient:</p>
@@ -47,16 +47,17 @@
 				<form action='/make_food' method='post'>
 					{%csrf_token%}
 						<input type="hidden" name="id" value='{{product.id}}'>
-						<button class="btn btn-primary">Make</button>
+						<button class="btn btn-info">Make</button>
 				</form>
 				<form action='/make10_food' method='post'>
 					{%csrf_token%}
-						<button class="btn btn-primary">Make 10</button>
+						<button class="btn btn-info">Make 10</button>
 						<input type="hidden" name="id" value='{{product.id}}'>
 				</form>
 			</div>	
 		</div>
-		{%endfor%}
+		{% endfor %}
+	<div id="bottom">
 		<div id="Inventory">
 		<table class="table">
 		<h2>Inventory</h2>
@@ -79,5 +80,6 @@
 		<div id="fridge">
 
 		</div>
+	</div>
 </body>
 </html>

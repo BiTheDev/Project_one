@@ -38,13 +38,17 @@ h1{
 #weather p, #weather img {
     display: inline-block;
 }
+#fund{
+    color:whitesmoke;
+    font-size: 18px;
+}
 
 #truck {
     border:2px groove gray;
     width:70%;
     margin:3% 0 0 15%;
     text-align: center;
-    border-radius: 25px;
+    border-radius: 20px;
 }
 
 #cooking{
