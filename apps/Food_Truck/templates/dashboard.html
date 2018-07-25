@@ -24,7 +24,6 @@
 		<!-- Use any element to open the sidenav -->
 		<nav class="navbar navbar-dark bg-dark">
 			<span onclick="openNav()">&#9776;</span>
-			<p id="fund">Current Fund: {{user.fund}}</p>
 			<div id="weather">
             <img src="http://openweathermap.org/img/w/{{ icon }}.png" alt="Image">
 			<p>Location: {{city}},</p>
@@ -34,11 +33,8 @@
 			</div>
 		</nav>
 		<div id="main">
-<<<<<<< HEAD
 			<h1>Welcome!</h1>	
-=======
-			<h1>Welcome!</h1>
->>>>>>> WedPedro
+
 		</div>
 		<div id="truck" class="bg-success">
 			<p>Your Shop</p>
@@ -80,12 +76,8 @@
 				</select></p>
 			<button type='submit'>Pack up and move! (Costs $100)</button>
 		</form>
-<<<<<<< HEAD
-		<a href="/sell">Sell</a>
-=======
-			<p>Current Fund: {{user.fund}}</p>
+			<p id="fund">Current Fund: {{user.fund}}</p>
 			<a href="/sell">Sell</a>
->>>>>>> WedPedro
 		</div>
 			{% if messages %}
       			{% for message in messages %}
