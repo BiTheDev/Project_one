@@ -143,6 +143,19 @@ def buy_ingredient(request):
 
 	return redirect('/shopping_list')
 
+def buy10_ingredient(request):
+	target = Ingredient.objects.get(id=request.POST['id'])
+	user = User.objects.get(id=request.session['id'])
+	if user.fund - target.buy_price * 10 > 0:
+		target.stock += 10
+		user.fund -= target.buy_price *10
+		target.save()
+		user.save()	
+	else:
+		messages.warning(request,"Not enough money!")
+
+	return redirect('/shopping_list')
+
 def cook(request):
 	return render(request, 'cook.html' , {'products':Product.objects.all(), 'ingredients':Ingredient.objects.all()})
 
@@ -184,16 +197,94 @@ def make_food(request):
 	target.save()
 	return redirect('/cook')
 
+def make10_food(request):
+	target = Product.objects.get(id=request.POST['id'])
+	target.stock += 10
+	if target.ingredient_A.stock-10 < -1:
+		messages.warning(request,"Not enough ingredients!")
+		return redirect('/cook')
+	else:
+		target.ingredient_A.stock -=10
+		target.ingredient_A.save()
+
+	
+	if target.ingredient_B != None:
+		if target.ingredient_B.stock-10 < -1:
+			messages.warning(request,"Not enough ingredients!")
+			return redirect('/cook')
+		else:
+			target.ingredient_B.stock -=10
+			target.ingredient_B.save()
+	
+	if target.ingredient_C != None:
+		if target.ingredient_B.stock-10 < -1:
+			messages.warning(request,"Not enough ingredients!")
+			return redirect('/cook')
+		else:
+			target.ingredient_C.stock -=10
+			target.ingredient_C.save()
+	
+	if target.ingredient_D != None:
+		if target.ingredient_B.stock-10 < -1:
+			messages.warning(request,"Not enough ingredients!")
+			return redirect('/cook')
+		else: 
+			target.ingredient_D.stock -=10
+			target.ingredient_D.save()
+	
+	target.save()
+	return redirect('/cook')
+
+
 def sell(request):
 	revenue = 0
-	targets = Product.objects.exclude(stock = 0)
+	target_breakfast = Product.objects.exclude(stock = 0).filter(product_type='breakfast')
+	target_meal = Product.objects.exclude(stock = 0).filter(product_type='meal')
+	target_snack = Product.objects.exclude(stock = 0).filter(product_type='snack')
+	target_drink = Product.objects.exclude(stock = 0).filter(product_type='drink')
 	user = User.objects.get(id=request.session['id'])
-	for target in targets:
-		print(target.product_name)
-		revenue = target.stock * target.sell_price
-		target.stock = 0
-		target.save()
-		user.fund += revenue
+	location = User.objects.get(id=request.session['id']).trucks.first().location
+	
+	for target in target_breakfast:
+		if location.demand_breakfast > 0:
+			location.demand_breakfast -= target.stock
+			revenue = target.stock * target.sell_price
+			target.stock = 0
+			target.save()
+			user.fund += revenue
+
+	for target in target_meal:
+		if location.demand_meal > 0:
+			location.demand_meal -= target.stock
+			revenue = target.stock * target.sell_price
+			target.stock = 0
+			target.save()
+			user.fund += revenue
+	
+
+	for target in target_snack:
+		if location.demand_snack > 0:
+			location.demand_snack -= target.stock
+			revenue = target.stock * target.sell_price
+			target.stock = 0
+			target.save()
+			user.fund += revenue
+
+
+	for target in target_drink:
+		if location.demand_drink > 0:
+			location.demand_drink -= target.stock
+			revenue = target.stock * target.sell_price
+			target.stock = 0
+			target.save()
+			user.fund += revenue		
+
 
 	user.save()
+
+	# New demand system will try to match the demand type vs the product type. Product will only sell if there's demand for that type of product.
+	# At the end of the day all products are spoiled and destoryed.
 	return redirect('/dashboard')
+
+# def sell(request):
+# 	

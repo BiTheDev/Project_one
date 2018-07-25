@@ -40,8 +40,17 @@
 					<td><form action='/make_food' method='post'>
 						{%csrf_token%}
 						<input type="hidden" name="id" value='{{product.id}}'>
+<<<<<<< HEAD
 						<button>Make</button>
 					</form></td>
+=======
+					</form>
+					<form action='/make10_food' method='post'>
+						{%csrf_token%}
+						<td><button>Make 10</button></td>
+						<input type="hidden" name="id" value='{{product.id}}'>
+					</form>
+>>>>>>> TuesdayPedro
 					<td>{{product.stock}}</td>
 				</tr>
 				{%endfor%}
