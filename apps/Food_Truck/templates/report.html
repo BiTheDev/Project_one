@@ -2,16 +2,21 @@
 <html>
 <head>
 	<title>Daily Report</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/report.css' %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-	<a href="/dashboard">Back</a>
-	<p>Revenue:{{reports.revenue}}</p>
-	<p>Cost:{{reports.cost}}</p>
-	<p>Profit:{{reports.profit}}</p>
-	<p>Item Sold:{{reports.item_sold}}</p>
-	<p>Item Spoiled:{{reports.item_unsold}}</p>
-	<p>Report Date: {{reports.created_at}}</p>
+	<div id="container">
+		<a href="/dashboard">Back</a>
+		<p>Revenue:{{reports.revenue}}</p>
+		<p>Cost:{{reports.cost}}</p>
+		<p>Profit:{{reports.profit}}</p>
+		<p>Item Sold:{{reports.item_sold}}</p>
+		<p>Item Spoiled:{{reports.item_unsold}}</p>
+		<p>Report Date: {{reports.created_at}}</p>
 	<!-- Reformat report date to just date -->
 	<!--  -->
+	</div>
 </body>
 </html>
