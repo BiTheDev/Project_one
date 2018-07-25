@@ -22,47 +22,44 @@
       			{% endif %}
       		{% endfor %}
 		{% endif %}
-		<h2>Recipes</h2>
-		<table class="table" id="Recipe">
-			<thead class="bg-success">
-				<tr>
-					<th>Name</th>
-					<th>Desc</th>
-					<th>Type</th>
-					<th>Sell Price</th>
-					<th>Action</th>
-					<th>Stock</th>
-				</tr>
-			</thead>
-			<tbody>
-				{%for product in products%}
-				<tr>
-					<td>{{product.product_name}}</td>
-					<td>{{product.description}}</td>
-					<td>{{product.product_type}}</td>
-					<td>{{product.sell_price}}</td>
-					<td>
-						<ul>
-							<li><form action='/make_food' method='post'></li>
-									{%csrf_token%}
-									<input type="hidden" name="id" value='{{product.id}}'>
-									<button>Make</button>
-								</form>
-							<li><form action='/make10_food' method='post'>
-									{%csrf_token%}
-									<button>Make 10</button>
-									<input type="hidden" name="id" value='{{product.id}}'>
-									</form>
-							</li>
-						</ul>	
-					</td>
-					<td>{{product.stock}}</td>
-				</tr>
-				{%endfor%}
-			</tbody>
-		</table>
+	<hr>
+			{%for product in products%}
+			<div class="card">
+				<h5>{{product.product_name}}</h5>
+				<p>Ingredient:</p>
+				
+				<ul class="ing">	
+					{% if product.ingredient_A.ingredient_name %}
+						<li class="ing">{{product.ingredient_A.ingredient_name}}</li>
+					{% endif %}
+					{% if product.ingredient_B.ingredient_name %}
+						<li class="ing">{{product.ingredient_B.ingredient_name}}</li>
+					{% endif %}
+					{% if product.ingredient_C.ingredient_name %}
+						<li class="ing">{{product.ingredient_C.ingredient_name}}</li>
+					{% endif %}
+					{% if product.ingredient_D.ingredient_name %}
+						<li class="ing">{{product.ingredient_D.ingredient_name}}</li>
+					{% endif %}
+				</ul>
+			<p>Stock: {{product.stock}}</p>
+			<div id="choice">	
+				<form action='/make_food' method='post'>
+					{%csrf_token%}
+						<input type="hidden" name="id" value='{{product.id}}'>
+						<button class="btn btn-primary">Make</button>
+				</form>
+				<form action='/make10_food' method='post'>
+					{%csrf_token%}
+						<button class="btn btn-primary">Make 10</button>
+						<input type="hidden" name="id" value='{{product.id}}'>
+				</form>
+			</div>	
+		</div>
+		{%endfor%}
+		<div id="Inventory">
+		<table class="table">
 		<h2>Inventory</h2>
-		<table class="table" id="Inventory">
 		<thead class="bg-info">
 			<tr>
 				<th>Name</th>
@@ -77,8 +74,10 @@
 			</tr>
 			{%endfor%}
 		</tbody>
-	</table>
-	</div>
+		</table>
+		</div>
+		<div id="fridge">
 
+		</div>
 </body>
 </html>

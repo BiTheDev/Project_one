@@ -24,10 +24,40 @@ h2{
     margin-top: 5% !important;
 }
 
-ul{
-    display: inline;
+
+hr{
+    display: block;
+    margin-top: 5% !important;
+    border: 1.5px solid gray !important;
 }
-li{
+
+.card{
+    display: inline-block !important;
+    vertical-align: top !important;
+    text-align: center;
+    width:10%;
+    border:1px groove black !important;
+    box-shadow: 1px 2px gray;
+}
+
+
+.ing{
+    list-style-type: square;
+    text-align: left;
+}
+
+form{   
     display: inline-block;
-    
+}
+
+#Inventory{
+    display: block;
+    width:40%;  
+    border:2px groove red;    
+}
+
+#fridge{
+    display: inline-block;
+    width:50%;
+    border:1px solid black;
 }
