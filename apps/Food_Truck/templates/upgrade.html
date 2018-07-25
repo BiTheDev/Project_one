@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Upgrade</title>
+</head>
+<body>
+	<h2>Here be upgrades</h2>
+	<table>
+		<thead>
+			<th>Upgrade</th>
+			<th>Purchased</th>
+		</thead>
+		<tbody>
+		{%for upgrade in upgrades%}
+			<td>{{upgrade.name}}</td>
+				{%if upgrade.activate == False%}
+				<td>No</td>
+				{%endif%}
+				{%if upgrade.activate == True%}
+				<td>Yes</td>
+				{%endif%}
+		{%endfor%}
+	</tbody>
+	</table>
+	<h2>Development Tools (make new upgrade):</h2>
+	<form action='/make_upgrade' method='post'>
+		{%csrf_token%}
+		<p>Upgrade Name:<input type="text" name="upgrade_name"></p>
+		<button type='submit'>Create</button>
+	</form>
+</body>
+</html>

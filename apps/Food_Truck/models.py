@@ -71,6 +71,7 @@ class Ingredient(models.Model):
 	buy_price = models.FloatField()
 	stock= models.IntegerField(default=0)
 	description = models.CharField(max_length=255, null=True)
+	perishable = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
 
