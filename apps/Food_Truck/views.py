@@ -11,9 +11,6 @@ def home(request):
 		request.session['id'] = 0
 	return render(request, 'home.html')
 
-def register_page(request):
-
-	return render(request, 'register.html', )
 
 def register(request):
 	errors = User.objects.validator(request.POST)

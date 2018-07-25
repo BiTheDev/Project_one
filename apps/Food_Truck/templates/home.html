@@ -2,11 +2,13 @@
 <html>
 <head>
 	<title>Food Truck</title>
-	<!-- {% load static %} -->
-	<link rel="stylesheet" type="text/css" href="../static/css/main.css">
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'JS/login.js' %}"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 </head>
-<body class="text-center">
+<body class="text-center" onload="changeimg()">
 	<div id="wrapper">
 	<form class="form-signin" action="/login/" method="POST">
 		{% csrf_token %}
@@ -15,7 +17,7 @@
 		<p>Password: <input type="password" name="password" class="form-control" placeholder="password"></p>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 	</form>
-	<span>No account? </span> <a href="/register_page/">Register</a>
+	<span>No account? </span> <button id="register">Register</button>
 	<hr>
 	<p>Log in with :</p>
 	<ul>
@@ -23,5 +25,24 @@
 		<li>Google+</li>
 	</ul>
 	</div>
+	<div id="container" style="display: none">
+			<form action="/register/" method="POST" class="form-group" id="register">
+				{% csrf_token%}
+				<h2>Register Here!</h2>
+				{% if messages %}
+					  {% for message in messages %}
+						  {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+						  <p style="color : red;">{{message}}</p>
+						  {% endif %}
+					  {% endfor %}
+				{% endif %}
+				<p>NickName: <input type="text" name="nickname" value=""></p>
+				<p>Email: <input type="text" name="email" value=""></p>
+				<p>password: <input type="password" name="password" value=""></p>
+				<p>Confirm password: <input type="password" name="confirm" value=""></p>
+				<button type="submit" class="btn btn-warning">Submit</button>
+			</form>
+			<button id="back">Back</button>
+		</div>
 </body>
 </html>

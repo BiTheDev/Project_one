@@ -1,17 +1,14 @@
-body{
-	background-image:url('../img/food-login.jpg');
-	background-size: cover;
-}
-#wrapper{
+
+#wrapper, #container{
 	background:rgba(240, 248, 255,0.8);
 	margin-top:200px;
 	border:2px ridge gray;
 	box-shadow: 1px 1px black;
 	width:30%;
 	margin-left: 35%;
-	padding-top:1%;
+	padding: 1%;
 }
-input, button, hr{
+input,.btn-primary, .btn-warning,  hr{
 	width:90% !important;
 	margin-left: 5% !important;
 }
@@ -22,4 +19,8 @@ hr{
 
 li{
 	display: inline;
+}
+
+#back{
+	margin-left:5% !important;
 }
