@@ -37,7 +37,15 @@
 						{%csrf_token%}
 						<input type="hidden" name='id' value="{{ingredient.id}}">
 						<button type='submit' class="btn-info">Buy!</button>
-					</form></td>
+					</form>
+					<form action='buy10_ingredient' method='post'>
+						{%csrf_token%}
+						<input type="hidden" name='id' value="{{ingredient.id}}">
+						<button type='submit' class="btn-info">Buy 10!</button>
+					</form>
+
+					</td>
+
 					<td>{{ingredient.stock}}</td>
 				</tr>
 				{%endfor%}
