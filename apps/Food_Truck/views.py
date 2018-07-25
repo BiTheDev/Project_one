@@ -9,6 +9,7 @@ now = datetime.datetime.now()
 def home(request):
 	if 'id' not in request.session:
 		request.session['id'] = 0
+		request.session['truck_id'] = 0
 	return render(request, 'home.html')
 
 def register_page(request):
@@ -80,15 +81,17 @@ def create_truck(request):
 def dashboard(request):
 	api_key = 'b913e1d2697f85dea1f1bd5adf0a07da'
 	url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid='+ api_key
-	city = 'Seattle'
+	city = User.objects.get(id=request.session['id']).trucks.first().location.location_name
 	city_weather = requests.get(url.format(city)).json()
 	context = {
-        'city' : User.objects.get(id=request.session['id']).trucks.first().location.location_name,
+        'city' : city,
         'temperature' : city_weather['main']['temp'],
         'description' : city_weather['weather'][0]['description'],
         'icon' : city_weather['weather'][0]['icon'],
-		'date' : now.strftime("%Y/%m/%d")
+		'date' : now.strftime("%Y/%m/%d"),
+		'locations' : Location.objects.all()
     }
+	request.session['truck_id'] = User.objects.get(id=request.session['id']).trucks.first().id
 	return render(request, 'dashboard.html', context)
 
 
@@ -141,7 +144,6 @@ def buy_ingredient(request):
 		target.save()
 		user.save()	
 	else:
-		print('not enough fund')
 		messages.warning(request,"Not enough money!")
 
 	return redirect('/shopping_list')
@@ -289,5 +291,16 @@ def sell(request):
 	# At the end of the day all products are spoiled and destoryed.
 	return redirect('/dashboard')
 
-# def sell(request):
-# 	
+def move(request):
+	target = Truck.objects.get(id=request.session['truck_id'])
+	user = User.objects.get(id=request.session['id'])
+	if User.objects.get(id=request.session['id']).fund < 100:
+		messages.warning(request, 'Not enough money to move!')
+	if target.location == Location.objects.get(id=request.POST['location']):
+		messages.warning(request, 'You are already at that location!')
+	else:
+		user.fund -= 100
+		target.location = Location.objects.get(id=request.POST['location'])
+		target.save()
+		user.save()
+	return redirect('/dashboard')

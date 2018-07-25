@@ -62,6 +62,25 @@
 				<p>desc</p>
 				<p>Number</p>
 			</div>
+			<div>
+				<form action='/move' method='POST'>
+				{%csrf_token%}
+				<p>Choose Location:<select name='location'>
+					{%for location in locations%}
+							<option value='{{location.id}}'>{{location.location_name}}</option>
+					{%endfor%}
+				</select></p>
+			<button type='submit'>Pack up and move! (Costs $100)</button>
+		</form>
 		</div>
+			{% if messages %}
+      			{% for message in messages %}
+      				{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+      				<p style="color : red;">{{message}}</p>
+      				{% endif %}
+      			{% endfor %}
+    		{% endif %}
+		</div>
+
 </body>
 </html>
