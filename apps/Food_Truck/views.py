@@ -269,7 +269,7 @@ def sell(request):
 			location.demand_breakfast -= target.stock
 			revenue = target.stock * target.sell_price
 			revenue_report += target.stock * target.sell_price
-			cost = target.stock * target.cost
+			cost =+ target.stock * target.cost
 			item_sold += target.stock
 			target.stock = 0
 			target.save()
@@ -280,7 +280,7 @@ def sell(request):
 			location.demand_meal -= target.stock
 			revenue = target.stock * target.sell_price
 			revenue_report += target.stock * target.sell_price
-			cost = target.stock * target.cost
+			cost =+ target.stock * target.cost
 			item_sold += target.stock
 			target.stock = 0
 			target.save()
@@ -292,7 +292,7 @@ def sell(request):
 			location.demand_snack -= target.stock
 			revenue = target.stock * target.sell_price
 			revenue_report += target.stock * target.sell_price
-			cost = target.stock * target.cost
+			cost =+ target.stock * target.cost
 			item_sold += target.stock
 			target.stock = 0
 			target.save()
@@ -304,16 +304,19 @@ def sell(request):
 			location.demand_drink -= target.stock
 			revenue = target.stock * target.sell_price
 			revenue_report += target.stock * target.sell_price
-			cost = target.stock * target.cost
+			cost =+ target.stock * target.cost
 			item_sold += target.stock
 			target.stock = 0
 			target.save()
-			user.fund += revenue		
+			user.fund += revenue
+
+	for target in target_report:
+		target.stock = 0
+
 
 	item_unsold -= item_sold
 	profit = revenue - cost
 	Report.objects.create(owner=user ,cost=cost, profit=profit, revenue=revenue,item_sold=item_sold,item_unsold=item_unsold)
-	print(Report.objects.last().__dict__)
 	user.save()
 
 	# New demand system will try to match the demand type vs the product type. Product will only sell if there's demand for that type of product.
@@ -333,3 +336,13 @@ def move(request):
 		target.save()
 		user.save()
 	return redirect('/dashboard')
+
+def report(request):
+	return render(request, 'report.html', {'reports': Report.objects.filter(owner=User.objects.get(id=request.session['id'])).last()})
+
+def upgrade(request):
+	return render(request, 'upgrade.html', {'upgrades': Upgrade.objects.all()})	
+
+def make_upgrade(request):
+	print('someshit')
+	return redirect('/upgrade')

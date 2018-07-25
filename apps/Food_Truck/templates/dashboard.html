@@ -14,6 +14,8 @@
   		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   		<a href="/shopping_list">Go Shopping</a>
   		<a href="/cook">Prepare Food</a>
+  		<a href="report">Report</a>
+  		<a href="/upgrade">Upgrade</a>
   		<a href="#">Settings</a>
   		<a href="/tools"> Developer Tools</a>
   		<a href="/logout/"> Logout</a>
@@ -32,8 +34,6 @@
 		</nav>
 		<div id="main">
 			<h1>Welcome!</h1>
-			<p>Current Fund: {{user.fund}}</p>
-			<a href="/sell">Sell</a>
 		</div>
 		<div id="truck" class="bg-success">
 			<p>Your Shop</p>
@@ -75,6 +75,8 @@
 				</select></p>
 			<button type='submit'>Pack up and move! (Costs $100)</button>
 		</form>
+			<p>Current Fund: {{user.fund}}</p>
+			<a href="/sell">Sell</a>
 		</div>
 			{% if messages %}
       			{% for message in messages %}
