@@ -22,6 +22,5 @@ urlpatterns =[
 	url(r'move$', views.move),
 	url(r'report$', views.report),
 	url(r'upgrade$', views.upgrade),
-	url(r'make_upgrade$', views.make_upgrade),
-
+	url(r'add_improvement$', views.add_improvement),
 ]
