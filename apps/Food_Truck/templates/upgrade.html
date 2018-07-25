@@ -5,6 +5,7 @@
 </head>
 <body>
 	<h2>Here be upgrades</h2>
+	<a href="/dashboard">back</a>
 	<table>
 		<thead>
 			<th>Upgrade</th>
@@ -12,6 +13,7 @@
 		</thead>
 		<tbody>
 		{%for upgrade in upgrades%}
+		<tr>
 			<td>{{upgrade.name}}</td>
 				{%if upgrade.activate == False%}
 				<td>No</td>
@@ -19,9 +21,11 @@
 				{%if upgrade.activate == True%}
 				<td>Yes</td>
 				{%endif%}
+		</tr>
 		{%endfor%}
-	</tbody>
+		</tbody>
 	</table>
+	
 	<h2>Development Tools (make new upgrade):</h2>
 	<form action='/make_upgrade' method='post'>
 		{%csrf_token%}

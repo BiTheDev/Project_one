@@ -344,5 +344,6 @@ def upgrade(request):
 	return render(request, 'upgrade.html', {'upgrades': Upgrade.objects.all()})	
 
 def make_upgrade(request):
-	print('someshit')
-	return redirect('/upgrade')
+	print(request.POST['name'])
+	Upgrade.objects.create(name=request.POST['name'])
+	return redirect('/dashboard')
