@@ -23,18 +23,13 @@
 				{%endif%}
 		</tr>
 		{%endfor%}
-<<<<<<< HEAD
-		</tbody>
-=======
-		</tr>
-	</tbody>
->>>>>>> WedPedro
 	</table>
 	
 	<h2>Development Tools (make new upgrade):</h2>
-	<form action='/make_upgrade' method='post'>
+	<a href="/add_improvement">upgrade</a>
+	<form action='/add_improvement' method='post'>
 		{%csrf_token%}
-		<p>Upgrade Name:<input type="text" name="upgrade_name"></p>
+		<p>Upgrade Name:<input type="text" name="name"></p>
 		<button type='submit'>Create</button>
 	</form>
 </body>
