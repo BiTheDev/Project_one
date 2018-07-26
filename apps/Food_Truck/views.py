@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 import bcrypt
 from .models import *
+# from .fusioncharts import FusionCharts
 from django.contrib import messages
 import requests
 import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 now = datetime.datetime.now()
-
 
 def home(request):
 	if 'id' not in request.session:
@@ -370,8 +370,29 @@ def move(request):
 	return redirect('/dashboard')
 
 def report(request):
+	# column2d = FusionCharts("column2d", "ex1" , "600", "400", "chart-1", "json", 
+    #       # The data is passed as a string in the `dataSource` as parameter.
+    #   {  
+    #         "chart":{  
+    #           "caption":"Harry\'s SuperMart",
+    #           "subCaption":"Top 5 stores in last month by revenue",
+    #           "numberPrefix":"$",
+    #           "theme":"ocean"
+    #         },
+    #         "data":[  
+    #           {"label":"Bakersfield Central", "value":"880000"},
+    #           {"label":"Garden Groove harbour", "value":"730000"},
+    #           {"label":"Los Angeles Topanga", "value":"590000"},
+    #           {"label":"Compton-Rancho Dom", "value":"520000"},
+    #           {"label":"Daly City Serramonte", "value":"330000"}
+    #         ]
+    #     })
 
-	return render(request, 'report.html', {'reports': Report.objects.filter(owner=User.objects.get(id=request.session['id'])).last()})
+	context = {
+		"user" : User.objects.get(id = request.session['id']).__dict__,
+		'reports': Report.objects.filter(owner=User.objects.get(id=request.session['id'])).last(),
+	}
+	return render(request, 'report.html', context)
 
 def upgrade(request):
 
