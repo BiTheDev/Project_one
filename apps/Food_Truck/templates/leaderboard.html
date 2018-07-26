@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LeaderBoard</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/rank.css' %}">
+	<link rel="shortcut icon" href="{% static 'img/food-truck.png' %}"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|PT+Sans+Narrow" rel="stylesheet">
+</head>
+<body>
+	<div id="container">
+	<a href="/dashboard" class="btn btn-dark">Back</a>
+	<h2>Overall LeaderBoard</h2>
+
+	<table class="table" >
+		<thead class="thead-dark">
+			<tr>
+				<th><a href="" class="btn btn-primary">Position</a></th>
+				<th><a href="" class="btn btn-success">Nickname</a></th>
+				<th><a href="" class="btn btn-warning">Truck Name</a></th>
+				<th><a href="" class="btn btn-danger">Fund</a></th>
+				<th><a href="" class="btn btn-info">Location</a></th>
+			</tr>
+		</thead>
+		
+			{%for user in users%}
+				<tr>
+					<th>Rank</th>
+					<th>{{user.nickname}}</th>
+					<th>{{user.trucks.first.name}}</th>
+					<th>${{user.fund}}</th>
+					<th>{{user.trucks.first.location.location_name}}</th>
+				</tr>
+			{%endfor%}
+	</table>
+	</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 body{
-    background-image: url('../img/kitchen-1.jpg');
+    background-image: url('../img/kitchen.jpg');
     background-size: cover;
 }
 
@@ -33,7 +33,7 @@ h2{
 hr{
     display: block;
     margin-top: 5% !important;
-    border: 1.5px solid gray !important;
+    border: 1.5px solid black !important;
 }
 
 .card{
@@ -60,7 +60,7 @@ form{
 #Inventory{
     vertical-align: top;
     display: inline-block;
-    border:2px groove red; 
+    border:2px groove black; 
     background-color: rgb(255, 255, 255);  
     margin: 5% 0 0 5%; 
 

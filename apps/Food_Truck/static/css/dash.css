@@ -1,5 +1,10 @@
 /* The side navigation menu */
 
+body{
+    background-image: url('../img/background.jpg');
+    background-size: cover;
+}
+
 .sidenav {
     height: 100%; /* 100% Full-height */
     width: 15%; /* 0 width - change this with JavaScript */
@@ -21,8 +26,9 @@ span{
     color: white;
 }
 h1{
-    display: inline;
-    margin-left:15% !important;
+    display: block;
+    text-align: center;
+    font-family: 'Merienda', cursive !important; 
 }
 #weather {
     display: inline-block;
@@ -45,6 +51,7 @@ h1{
 }
 
 #truck {
+    background-color: rgba(0,0,0,0.2);
     border:2px groove gray;
     width:70%;
     margin:3% 0 0 15%;
@@ -52,18 +59,12 @@ h1{
     border-radius: 20px;
 }
 
-#cooking{
-    border: 1px solid black;
-    width:98%;
-    height: 200px;
-    margin: 1% 0 1% 1%;
-    background-color:#f2ffe6;
-}
 .card{
     display: inline-block !important;
     width:19%;
     margin-bottom: 1%;
     box-shadow: 1px 2px gray;
+    background-color:rgba(255,255,255,0.8) !important;
 }
 /* The navigation menu links */
 .sidenav a {
