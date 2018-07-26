@@ -10,6 +10,8 @@ def home(request):
 	if 'id' not in request.session:
 		request.session['id'] = 0
 		request.session['truck_id'] = 0
+		request.session['temperature'] = 0
+		request.session['temperature'] = ''
 	return render(request, 'home.html')
 
 
@@ -62,7 +64,7 @@ def login(request):
 	
 
 def create(request):
-	print('report route working')
+
 	return render(request, 'create.html', {'locations': Location.objects.all()})
 
 def create_truck(request):
@@ -77,7 +79,6 @@ def create_truck(request):
 	return redirect('/dashboard/')
 
 def dashboard(request):
-	print('dash route working')
 	api_key = 'b913e1d2697f85dea1f1bd5adf0a07da'
 	url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid='+ api_key
 	city = User.objects.get(id=request.session['id']).trucks.first().location.location_name
@@ -91,7 +92,11 @@ def dashboard(request):
 		'locations' : Location.objects.all(),
 		'user': User.objects.get(id=request.session['id'])
     }
+	request.session['temperature'] = city_weather['main']['temp']
+
+	request.session['weather'] = city_weather['weather'][0]['main']
 	request.session['truck_id'] = User.objects.get(id=request.session['id']).trucks.first().id
+	print (request.session['weather'])
 	return render(request, 'dashboard.html', context)
 
 
@@ -101,11 +106,11 @@ def logout(request):
 	return redirect('/')
 
 def buy_menu(request):
-	print('buy_menu route working')
+
 	return render(request, 'buy.html', {'ingredients': Ingredient.objects.all(), 'user':User.objects.get(id=request.session['id'])})
 
 def tools(request):
-	print('tools route working')
+
 	return render(request, 'tools.html', {'ingredients':Ingredient.objects.all(), 'products':Product.objects.all()})
 
 def add_ingredient(request):
@@ -113,7 +118,6 @@ def add_ingredient(request):
 	return redirect('/tools')
 
 def add_product(request):
-
 	cost = 0
 	target = Product(product_name=request.POST['product_name'])
 	target.product_type = request.POST['product_type']
@@ -161,7 +165,7 @@ def buy10_ingredient(request):
 	user = User.objects.get(id=request.session['id'])
 	if user.fund - target.buy_price * 10 > 0:
 		target.stock += 10
-		user.fund -= target.buy_price *10
+		user.fund -= target.buy_price *9.5
 		target.save()
 		user.save()	
 	else:
@@ -173,7 +177,6 @@ def cook(request):
 	return render(request, 'cook.html' , {'products':Product.objects.all(), 'ingredients':Ingredient.objects.all()})
 
 def make_food(request):
-	print('make 1 route working')
 	target = Product.objects.get(id=request.POST['id'])
 	target.stock += 1
 	if target.ingredient_A.stock-1 == -1:
@@ -212,7 +215,6 @@ def make_food(request):
 	return redirect('/cook')
 
 def make10_food(request):
-	print('make 10 route working')
 	target = Product.objects.get(id=request.POST['id'])
 	target.stock += 10
 	if target.ingredient_A.stock-10 < -1:
@@ -252,7 +254,6 @@ def make10_food(request):
 
 
 def sell(request):
-	print('sell route working')
 	revenue = 0
 	target_report = Product.objects.exclude(stock = 0)
 	target_breakfast = Product.objects.exclude(stock = 0).filter(product_type='breakfast')
@@ -262,6 +263,27 @@ def sell(request):
 	user = User.objects.get(id=request.session['id'])
 	location = User.objects.get(id=request.session['id']).trucks.first().location
 	
+	# Upgrade and other modifiers
+	
+	if request.session['temperature'] > 100:
+		demand_drink *= 1.4
+	elif request.session['temperature'] > 90:
+		demand_drink *= 1.2
+	elif request.session['temperature'] > 80:
+		demand_drink *= 1.1
+
+	if request.session['weather'] == 'Rain':
+		demand_breakfast *= 0.8
+		demand_drink *= 0.8
+		demand_meal *= 0.8
+		demand_snack *= 0.8
+
+	if request.session['weather'] == 'Snow':
+		demand_breakfast *= 0.8
+		demand_drink *= 0.8
+		demand_meal *= 0.8
+		demand_snack *= 0.8
+		
 	# data to keep track of to generate report
 	cost = 0
 	revenue_report = 0
@@ -321,7 +343,7 @@ def sell(request):
 	for target in target_report:
 		target.stock = 0
 
-
+	user.age += 1
 	item_unsold -= item_sold
 	profit = revenue - cost
 	Report.objects.create(owner=user ,cost=cost, profit=profit, revenue=revenue,item_sold=item_sold,item_unsold=item_unsold)
@@ -343,15 +365,16 @@ def move(request):
 	return redirect('/dashboard')
 
 def report(request):
-	print('report route working')
+
 	return render(request, 'report.html', {'reports': Report.objects.filter(owner=User.objects.get(id=request.session['id'])).last()})
 
 def upgrade(request):
-	print('upgrade route working')
+
 	return render(request, 'upgrade.html', {'upgrades': Upgrade.objects.all()})	
 
 def add_improvement(request):
-	print('creat_upgrade route working')
-	# print(request.POST['name'])
-	# Upgrade.objects.create(name=request.POST['name'])
+	Upgrade.objects.create(name=request.POST['name'])
 	return redirect('/upgrade')
+
+def leaderboard(request):
+	return render(request, 'leaderboard.html', {'users': User.objects.all()})
