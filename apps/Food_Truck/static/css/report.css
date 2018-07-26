@@ -1,12 +1,14 @@
-<<<<<<< HEAD
 #container{
     display: block;
     border:1px solid black;
     width:15%;  
-=======
+}
 .card{
     display: inline-block !important;
     border:1px solid black;
     width:14%;
->>>>>>> 384d92ae88d055d2dfc307b903a1629e2078d97f
+}
+
+a{
+    display: block;
 }
