@@ -4,10 +4,8 @@ from .models import *
 from django.contrib import messages
 import requests
 import datetime
-from datetime import datetime
-from apscheduler.schedulers.background import BackgroundScheduler
 
-
+now = datetime.datetime.now()
 
 def home(request):
 	if 'id' not in request.session:
@@ -272,23 +270,35 @@ def sell(request):
 	# Upgrade and other modifiers
 	
 	if request.session['temperature'] > 100:
-		demand_drink *= 1.4
+		location.demand_drink *= 1.4
 	elif request.session['temperature'] > 90:
-		demand_drink *= 1.2
+		location.demand_drink *= 1.2
 	elif request.session['temperature'] > 80:
-		demand_drink *= 1.1
+		location.demand_drink *= 1.1
 
 	if request.session['weather'] == 'Rain':
-		demand_breakfast *= 0.8
-		demand_drink *= 0.8
-		demand_meal *= 0.8
-		demand_snack *= 0.8
+		location.demand_breakfast *= 0.8
+		location.demand_drink *= 0.8
+		location.demand_meal *= 0.8
+		location.demand_snack *= 0.8
 
 	if request.session['weather'] == 'Snow':
-		demand_breakfast *= 0.8
-		demand_drink *= 0.8
-		demand_meal *= 0.8
-		demand_snack *= 0.8
+		location.demand_breakfast *= 0.8
+		location.demand_drink *= 0.8
+		location.demand_meal *= 0.8
+		location.demand_snack *= 0.8
+		
+	if request.session['weather'] == 'Thunderstorm':
+		location.demand_breakfast *= 0.2
+		location.demand_drink *= 0.2
+		location.demand_meal *= 0.2
+		location.demand_snack *= 0.2
+	
+	if request.session['weather'] == 'Drizzle':
+		location.demand_breakfast *= 0.9
+		location.demand_drink *= 0.9
+		location.demand_meal *= 0.9
+		location.demand_snack *= 0.9
 		
 	# data to keep track of to generate report
 	cost = 0
