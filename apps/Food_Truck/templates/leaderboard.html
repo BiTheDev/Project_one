@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<a href="/dashboard">Back</a>
+	<table>
+		<thead>
+			<tr>
+				<th>Nickname</th>
+				<th>Truck Name</th>
+				<th>Fund</th>
+				<th>Current Truck Location</th>
+			</tr>
+		</thead>
+		
+			{%for user in users%}
+				<tr>
+					<th>{{user.nickname}}</th>
+					<th>{{user.trucks.first.name}}</th>
+					<th>${{user.fund}}</th>
+					<th>{{user.trucks.first.location.location_name}}</th>
+				</tr>
+			{%endfor%}
+	</table>
+</body>
+</html>
