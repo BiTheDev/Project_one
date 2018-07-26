@@ -4,15 +4,13 @@
 	<title>LeaderBoard</title>
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/rank.css' %}">
+	<link rel="shortcut icon" href="{% static 'img/food-truck.png' %}"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|PT+Sans+Narrow" rel="stylesheet">
 </head>
 <body>
-	<nav class="navbar navbar-dark bg-dark">
-			<a href="/dashboard" class="btn btn-light">Back</a>
-	</nav>
-
-
+	<div id="container">
+	<a href="/dashboard" class="btn btn-dark">Back</a>
 	<h2>Overall LeaderBoard</h2>
 
 	<table class="table" >
@@ -36,5 +34,6 @@
 				</tr>
 			{%endfor%}
 	</table>
+	</div>
 </body>
 </html>

@@ -4,9 +4,8 @@ from .models import *
 from django.contrib import messages
 import requests
 import datetime
-from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
-
+now = datetime.datetime.now()
 
 
 def home(request):

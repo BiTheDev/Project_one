@@ -1,3 +1,8 @@
-h2{
-    margin-top:80px !important;
+body{
+    background-image: url('../img/rank.jpg');
+    background-size: cover;
+    
+}
+#container{
+    background-color: rgba(255,255,255,0.4) !important;
 }
