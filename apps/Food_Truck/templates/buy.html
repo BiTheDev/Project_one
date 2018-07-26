@@ -4,11 +4,12 @@
 	<title>Store</title>
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/buy.css' %}">
+	<link rel="shortcut icon" href="{% static 'img/food-truck.png' %}"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 	<div id="container">
-		<h3>Ingredient Available for Sale</h3>
+		<h3>Ingredients Available for Sale</h3>
 		<a href="/dashboard/">Back to Dashboard</a>
 		<p>Current fund avaliable: {{user.fund}}</p>
 			{% if messages %}
@@ -52,7 +53,7 @@
 				{%endfor%}
 			</tbody>
 		</table>
-		<p style='color: green; font-size:8pt'>Hint: Buy in bulk to recieve discount</p>
+		<p style='color: green; font-size:8pt'>Hint: Buy in bulk to receive discount</p>
 	</div>
 </body>
 </html>
