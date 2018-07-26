@@ -7,19 +7,18 @@
 	<link rel="shortcut icon" href="{% static 'img/food-truck.png' %}"/>
 	<script type="text/javascript" src="{% static 'JS/dash.js' %}"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css?family=Concert+One" rel="stylesheet">
-</head>
+	<link href="https://fonts.googleapis.com/css?family=Concert+One|Merienda" rel="stylesheet"></head>
 <body onload="currentTime()">
 	<div id="mySidenav" class="sidenav bg-dark">
   		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  		<a href="/shopping_list">Go Shopping</a>
-  		<a href="/cook">Prepare Food</a>
-  		<a href="report">Report</a>
-  		<a href="/upgrade">Upgrade</a>
-  		<a href="/leaderboard">Leaderboard</a>
-  		<a href="#">Settings</a>
-  		<a href="/tools"> Developer Tools</a>
-  		<a href="/logout/"> Logout</a>
+  		<a href="/shopping_list"><img src="../static/img/shopping.png" alt=""> Shop</a>
+  		<a href="/cook"><img src="../static/img/cook.png" alt="cook"> Cook</a>
+  		<a href="report"><img src="../static/img/report.png" alt="report icon"> Report</a>
+  		<a href="/upgrade"><img src="../static/img/upgrade.png" alt="upgrade icon"> Upgrade</a>
+  		<a href="/leaderboard"><img src="../static/img/leaderboard.png" alt="leaderboard"> Rank</a>
+  		<a href="#"><img src="../static/img/setting.png" alt="setting"> Settings</a>
+  		<a href="/tools"><img src="../static/img/tool.png" alt="tool"> Dev Tools</a>
+  		<a href="/logout/"><img src="../static/img/logout.png" alt="logout"> Logout</a>
 	</div>
 
 		<!-- Use any element to open the sidenav -->
@@ -34,13 +33,10 @@
 			</div>
 		</nav>
 		<div id="main">
-			<h1>Welcome!</h1>	
+			<h1>Your Truck Name</h1>	
 		</div>
-		<div id="truck" class="bg-success">
+		<div id="truck">
 			<p>Your Shop</p>
-			<div id="cooking">
-				<p>Cooking Area</p>
-			</div>
 			<div class="card">
 				<h5>Item Name</h5>
 				<p>desc</p>
@@ -69,15 +65,15 @@
 			<div>
 				<form action='/move' method='POST'>
 				{%csrf_token%}
-				<p>Choose Location:<select name='location'>
+				<p><select name='location'>
 					{%for location in locations%}
 							<option value='{{location.id}}'>{{location.location_name}}</option>
 					{%endfor%}
 				</select></p>
-			<button type='submit'>Pack up and move! (Costs $100)</button>
+			<button type='submit'>Moving? (Costs $100)</button>
 		</form>
 			<p id="fund">Current Funds: {{user.fund}}</p>
-			<a href="/sell">Sell</a>
+			<a href="/sell" class="btn btn-danger">Sell</a>
 		</div>
 			{% if messages %}
       			{% for message in messages %}
