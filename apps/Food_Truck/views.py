@@ -353,5 +353,5 @@ def upgrade(request):
 def add_improvement(request):
 	print('creat_upgrade route working')
 	# print(request.POST['name'])
-	# Upgrade.objects.create(name=request.POST['name'])
+	Upgrade.objects.create(name=request.POST['name'])
 	return redirect('/upgrade')

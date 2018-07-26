@@ -72,6 +72,7 @@ class Ingredient(models.Model):
 	stock= models.IntegerField(default=0)
 	description = models.CharField(max_length=255, null=True)
 	perishable = models.BooleanField(default=False)
+	level = models.IntegerField(default=1)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
 
@@ -103,6 +104,7 @@ class Report(models.Model):
 class Upgrade(models.Model):
 	name = models.CharField(max_length=255)
 	owner = models.ForeignKey(User, related_name ='upgrades', null=True)
+	description = models.CharField(max_length=255, null=True)
 	activate = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
