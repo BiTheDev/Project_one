@@ -1,5 +1,5 @@
-#container{
-    display: block;
+.card{
+    display: inline-block !important;
     border:1px solid black;
-    width:15%;  
+    width:14%;
 }
