@@ -4,7 +4,10 @@ from .models import *
 from django.contrib import messages
 import requests
 import datetime
-now = datetime.datetime.now()
+from datetime import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
+
+
 
 def home(request):
 	if 'id' not in request.session:
@@ -96,7 +99,9 @@ def dashboard(request):
 
 	request.session['weather'] = city_weather['weather'][0]['main']
 	request.session['truck_id'] = User.objects.get(id=request.session['id']).trucks.first().id
-	print (request.session['weather'])
+	target = User.objects.get(id=request.session['id'])
+	target.last_log = datetime.datetime.now()
+	print(target.last_log)
 	return render(request, 'dashboard.html', context)
 
 
@@ -254,6 +259,7 @@ def make10_food(request):
 
 
 def sell(request):
+	print('Sell cycle triggered!')
 	revenue = 0
 	target_report = Product.objects.exclude(stock = 0)
 	target_breakfast = Product.objects.exclude(stock = 0).filter(product_type='breakfast')

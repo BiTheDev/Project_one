@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 from django.db import models
 import re
 
+
+
 class UserManager(models.Manager):
 	def validator(self, postData):
 		EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -46,6 +48,7 @@ class User(models.Model):
 	fund = models.FloatField(default = 1000)
 	has_truck = models.BooleanField(default = False)
 	age = models.IntegerField(default=1)
+	last_log = models.DateTimeField(null=True)
 	objects=UserManager()
 
 class Location(models.Model):
@@ -109,3 +112,15 @@ class Upgrade(models.Model):
 	activate = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
+
+
+class Sales_Slot(models.Model):
+	truck = models.OneToOneField(Truck)
+	slot_1 = models.ForeignKey(Product, null=True, default=None, related_name='slot1')
+	slot_2 = models.ForeignKey(Product, null=True, default=None, related_name='slot2')
+	slot_3 = models.ForeignKey(Product, null=True, default=None, related_name='slot3')
+	slot_4 = models.ForeignKey(Product, null=True, default=None, related_name='slot4')
+	slot_5 = models.ForeignKey(Product, null=True, default=None, related_name='slot5')
+	slot_6 = models.ForeignKey(Product, null=True, default=None, related_name='slot6')
+	slot_7 = models.ForeignKey(Product, null=True, default=None, related_name='slot7')
+	slot_8 = models.ForeignKey(Product, null=True, default=None, related_name='slot8')
