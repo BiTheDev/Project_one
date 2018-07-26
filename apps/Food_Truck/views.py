@@ -5,17 +5,9 @@ from .models import *
 from django.contrib import messages
 import requests
 import datetime
-<<<<<<< HEAD
 from apscheduler.schedulers.background import BackgroundScheduler
 now = datetime.datetime.now()
-=======
->>>>>>> ThursdayPedro2
 
-<<<<<<< HEAD
-now = datetime.datetime.now()
-
-=======
->>>>>>> Testing
 def home(request):
 	if 'id' not in request.session:
 		request.session['id'] = 0
@@ -390,28 +382,13 @@ def move(request):
 	return redirect('/dashboard')
 
 def report(request):
-	# column2d = FusionCharts("column2d", "ex1" , "600", "400", "chart-1", "json", 
-    #       # The data is passed as a string in the `dataSource` as parameter.
-    #   {  
-    #         "chart":{  
-    #           "caption":"Harry\'s SuperMart",
-    #           "subCaption":"Top 5 stores in last month by revenue",
-    #           "numberPrefix":"$",
-    #           "theme":"ocean"
-    #         },
-    #         "data":[  
-    #           {"label":"Bakersfield Central", "value":"880000"},
-    #           {"label":"Garden Groove harbour", "value":"730000"},
-    #           {"label":"Los Angeles Topanga", "value":"590000"},
-    #           {"label":"Compton-Rancho Dom", "value":"520000"},
-    #           {"label":"Daly City Serramonte", "value":"330000"}
-    #         ]
-    #     })
 
 	context = {
 		"user" : User.objects.get(id = request.session['id']).__dict__,
 		'reports': Report.objects.filter(owner=User.objects.get(id=request.session['id'])).last(),
 	}
+
+
 	return render(request, 'report.html', context)
 
 def upgrade(request):

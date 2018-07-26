@@ -27,13 +27,16 @@
 
 <script type="text/javascript">
 	window.onload =  function (){
-	var DATA = []
+	var selected_year = {{ reports.created_at|date:"Y" }}
+    var selected_month = {{ reports.created_at|date:"m" }} - 1;
+	var selected_day = {{ reports.created_at|date:"d"}}
+	var profit = {{reports.profit}}
 	var chart = new CanvasJS.Chart("chartContainer", {
 		title: {
 			text: "Financial Data"
 		},
 		axisX: {
-			valueFormatString: "MMM YYYY"
+			valueFormatString: "MMMM DD YYYY"
 		},
 		axisY2: {
 			title: "Profit",
@@ -56,9 +59,9 @@
 			showInLegend: true,
 			markerSize: 0,
 			yValueFormatString: "$###,###,###",
-			dataPoints: [		
-				{ x:"{{reports.created_at}}", y: "{{reports.profit}}" },
-			]
+			dataPoints: [
+				{x: new Date(selected_year, selected_month, selected_day), y: profit},
+		],
 		}],
 	});
 

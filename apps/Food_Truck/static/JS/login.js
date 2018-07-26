@@ -2,6 +2,7 @@ function changeimg(){
     var num = Math.ceil(Math.random() * 2)
     document.body.background = "static/img/food-"+num+".jpg";
     document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat= "no-repeat";
 }
 
 $(document).ready(function(){
