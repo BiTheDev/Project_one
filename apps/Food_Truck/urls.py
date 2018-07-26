@@ -23,4 +23,5 @@ urlpatterns =[
 	url(r'report$', views.report),
 	url(r'upgrade$', views.upgrade),
 	url(r'add_improvement$', views.add_improvement),
+	url(r'leaderboard$', views.leaderboard),
 ]
