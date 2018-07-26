@@ -3,3 +3,12 @@
     border:1px solid black;
     width:15%;  
 }
+.card{
+    display: inline-block !important;
+    border:1px solid black;
+    width:14%;
+}
+
+a{
+    display: block;
+}

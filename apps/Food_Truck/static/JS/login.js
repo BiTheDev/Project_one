@@ -1,5 +1,5 @@
 function changeimg(){
-    var num = Math.ceil(Math.random() * 5)
+    var num = Math.ceil(Math.random() * 2)
     document.body.background = "static/img/food-"+num+".jpg";
     document.body.style.backgroundSize = "cover";
 }
