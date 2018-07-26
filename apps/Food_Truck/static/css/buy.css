@@ -1,6 +1,7 @@
 body{
     background-image:url('../img/shop-1.jpg');
     background-size: cover;
+    background-repeat: no-repeat;
 }
 
 #container{

@@ -6,6 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/report.css' %}">
 	<link rel="shortcut icon" href="{% static 'img/food-truck.png' %}"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- <script type="text/javascript" src="{% static "fusioncharts/fusioncharts.js" %}"></script>
+   <script type="text/javascript" src="{% static "fusioncharts/themes/fusioncharts.theme.fint.js" %}"></script> -->
 </head>
 <body>
 	<div>
@@ -19,5 +21,62 @@
 		<p>Report Date: {{reports.created_at}}</p>
 	</div>
 </div>
+<!-- <div id="chart-1"></div>
+{{ output|safe }} -->
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+<script type="text/javascript">
+	window.onload =  function (){
+	var selected_year = {{ reports.created_at|date:"Y" }}
+    var selected_month = {{ reports.created_at|date:"m" }} - 1;
+	var selected_day = {{ reports.created_at|date:"d"}}
+	var profit = {{reports.profit}}
+	var chart = new CanvasJS.Chart("chartContainer", {
+		title: {
+			text: "Financial Data"
+		},
+		axisX: {
+			valueFormatString: "MMMM DD YYYY"
+		},
+		axisY2: {
+			title: "Profit",
+			prefix: "$",
+		},
+		toolTip: {
+			shared: true
+		},
+		legend: {
+			cursor: "pointer",
+			verticalAlign: "top",
+			horizontalAlign: "center",
+			dockInsidePlotArea: true,
+			itemclick: toogleDataSeries
+		},
+		data: [{
+			type:"line",
+			axisYType: "secondary",
+			name:"{{user.nickname}}",
+			showInLegend: true,
+			markerSize: 0,
+			yValueFormatString: "$###,###,###",
+			dataPoints: [
+				{x: new Date(selected_year, selected_month, selected_day), y: profit},
+		],
+		}],
+	});
+
+chart.render();
+
+function toogleDataSeries(e){
+	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	} else{
+		e.dataSeries.visible = true;
+	}
+	chart.render();
+}
+}
+</script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>

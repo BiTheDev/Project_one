@@ -1,15 +1,11 @@
 from django.shortcuts import render, redirect
 import bcrypt
 from .models import *
+# from .fusioncharts import FusionCharts
 from django.contrib import messages
 import requests
 import datetime
-<<<<<<< HEAD
 from apscheduler.schedulers.background import BackgroundScheduler
-now = datetime.datetime.now()
-=======
->>>>>>> ThursdayPedro2
-
 now = datetime.datetime.now()
 
 def home(request):
@@ -387,7 +383,13 @@ def move(request):
 
 def report(request):
 
-	return render(request, 'report.html', {'reports': Report.objects.filter(owner=User.objects.get(id=request.session['id'])).last()})
+	context = {
+		"user" : User.objects.get(id = request.session['id']).__dict__,
+		'reports': Report.objects.filter(owner=User.objects.get(id=request.session['id'])).last(),
+	}
+
+
+	return render(request, 'report.html', context)
 
 def upgrade(request):
 
