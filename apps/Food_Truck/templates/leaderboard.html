@@ -27,7 +27,7 @@
 		
 			{%for user in users%}
 				<tr>
-					<th>Rank</th>
+					<th>{{user.id}}</th>
 					<th>{{user.nickname}}</th>
 					<th>{{user.trucks.first.name}}</th>
 					<th>${{user.fund}}</th>

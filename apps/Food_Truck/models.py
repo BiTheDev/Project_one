@@ -109,6 +109,7 @@ class Upgrade(models.Model):
 	name = models.CharField(max_length=255)
 	owner = models.ForeignKey(User, related_name ='upgrades', null=True)
 	description = models.CharField(max_length=255, null=True)
+	cost = models.IntegerField()
 	activate = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
