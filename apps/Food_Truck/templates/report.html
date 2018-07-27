@@ -11,7 +11,7 @@
 </head>
 <body>
 	<a href="/dashboard" class="btn btn-primary">Back</a>
-	{% for report in reports%}
+	{% for report in reports|slice:":6"%}
 	<div class="card">
 		<p>Revenue:{{report.revenue}}</p>
 		<p>Cost:{{report.cost}}</p>
