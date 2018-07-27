@@ -10,6 +10,48 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 </head>
 <body class="text-center" onload="changeimg()">
+	<script>
+		function statusChangeCallback(response) {
+			console.log('statusChangeCallback');
+			console.log(response);
+			if (response.status === 'connected') {
+			} else {
+				document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+    		}
+  		}
+		function checkLoginState() {
+    		FB.getLoginStatus(function(response) {
+      			statusChangeCallback(response);
+    		});
+  		}
+		window.fbAsyncInit = function() {
+    		FB.init({
+    			appId      : '666684313681260',
+				cookie     : true,
+				xfbml      : true,
+				version    : 'v3.1'
+			});
+			FB.getLoginStatus(function(response) {
+      			statusChangeCallback(response);
+    		});
+
+		};
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1&appId=666684313681260&autoLogAppEvents=1';
+			fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		function testAPI() {
+			console.log('Welcome!  Fetching your information.... ');
+			FB.api('/me', function(response) {
+			console.log('Successful login for: ' + response.name);
+			document.getElementById('status').innerHTML =
+				'Thanks for logging in, ' + response.name + '!';
+			});
+		}
+	</script>
 	<div id="wrapper">
 	<form class="form-signin" action="/login/" method="POST">
 		{% csrf_token %}
@@ -22,7 +64,9 @@
 	<hr>
 	<p>Log in with :</p>
 	<ul>
-		<li>Facebook</li>
+		<li>
+			<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+		</li>
 		<li>Google+</li>
 	</ul>
 	</div>
