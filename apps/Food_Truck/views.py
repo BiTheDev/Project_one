@@ -316,7 +316,7 @@ def sell(request):
 		if location.demand_breakfast > 0:
 			revenue = target.stock * target.sell_price
 			revenue_report += target.stock * target.sell_price
-			cost =+ target.stock * target.cost
+			cost += target.stock * target.cost
 			item_sold += target.stock
 			location.demand_breakfast -= target.stock	
 			target.stock = 0
@@ -327,7 +327,7 @@ def sell(request):
 		if location.demand_meal > 0:
 			revenue = target.stock * target.sell_price
 			revenue_report += target.stock * target.sell_price
-			cost =+ target.stock * target.cost
+			cost += target.stock * target.cost
 			item_sold += target.stock
 			location.demand_meal -= target.stock
 			target.stock = 0
@@ -339,7 +339,7 @@ def sell(request):
 		if location.demand_snack > 0:
 			revenue = target.stock * target.sell_price
 			revenue_report += target.stock * target.sell_price
-			cost =+ target.stock * target.cost
+			cost += target.stock * target.cost
 			item_sold += target.stock
 			location.demand_snack -= target.stock
 			target.stock = 0
@@ -351,7 +351,7 @@ def sell(request):
 		if location.demand_drink > 0:
 			revenue = target.stock * target.sell_price
 			revenue_report += target.stock * target.sell_price
-			cost =+ target.stock * target.cost
+			cost += target.stock * target.cost
 			item_sold += target.stock
 			location.demand_drink -= target.stock
 			target.stock = 0
@@ -363,8 +363,8 @@ def sell(request):
 
 	user.age += 1
 	item_unsold -= item_sold
-	profit = revenue - cost
-	Report.objects.create(owner=user ,cost=cost, profit=profit, revenue=revenue,item_sold=item_sold,item_unsold=item_unsold)
+	profit = revenue_report - cost
+	Report.objects.create(owner=user ,cost=cost, profit=profit, revenue=revenue_report,item_sold=item_sold,item_unsold=item_unsold)
 	user.save()
 	return redirect('/dashboard')
 
