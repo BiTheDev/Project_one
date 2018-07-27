@@ -95,8 +95,8 @@ def dashboard(request):
 		'user': User.objects.get(id=request.session['id']),
 		'products': Product.objects.exclude(stock=0)
     }
-	request.session['temperature'] = city_weather['main']['temp']
 
+	request.session['temperature'] = city_weather['main']['temp']
 	request.session['weather'] = city_weather['weather'][0]['main']
 	request.session['truck_id'] = User.objects.get(id=request.session['id']).trucks.first().id
 	target = User.objects.get(id=request.session['id'])
@@ -112,7 +112,7 @@ def logout(request):
 
 def buy_menu(request):
 
-	return render(request, 'buy.html', {'ingredients': Ingredient.objects.all(), 'user':User.objects.get(id=request.session['id'])})
+	return render(request, 'buy.html', {'ingredients': Ingredient.objects.all().order_by('buy_price'), 'user':User.objects.get(id=request.session['id'])})
 
 def tools(request):
 
@@ -314,22 +314,22 @@ def sell(request):
 
 	for target in target_breakfast:
 		if location.demand_breakfast > 0:
-			location.demand_breakfast -= target.stock
 			revenue = target.stock * target.sell_price
 			revenue_report += target.stock * target.sell_price
 			cost =+ target.stock * target.cost
 			item_sold += target.stock
+			location.demand_breakfast -= target.stock	
 			target.stock = 0
 			target.save()
 			user.fund += revenue
 
 	for target in target_meal:
 		if location.demand_meal > 0:
-			location.demand_meal -= target.stock
 			revenue = target.stock * target.sell_price
 			revenue_report += target.stock * target.sell_price
 			cost =+ target.stock * target.cost
 			item_sold += target.stock
+			location.demand_meal -= target.stock
 			target.stock = 0
 			target.save()
 			user.fund += revenue
@@ -337,11 +337,11 @@ def sell(request):
 
 	for target in target_snack:
 		if location.demand_snack > 0:
-			location.demand_snack -= target.stock
 			revenue = target.stock * target.sell_price
 			revenue_report += target.stock * target.sell_price
 			cost =+ target.stock * target.cost
 			item_sold += target.stock
+			location.demand_snack -= target.stock
 			target.stock = 0
 			target.save()
 			user.fund += revenue
@@ -349,11 +349,11 @@ def sell(request):
 
 	for target in target_drink:
 		if location.demand_drink > 0:
-			location.demand_drink -= target.stock
 			revenue = target.stock * target.sell_price
 			revenue_report += target.stock * target.sell_price
 			cost =+ target.stock * target.cost
 			item_sold += target.stock
+			location.demand_drink -= target.stock
 			target.stock = 0
 			target.save()
 			user.fund += revenue
@@ -397,7 +397,7 @@ def upgrade(request):
 	return render(request, 'upgrade.html', {'upgrades': Upgrade.objects.all()})	
 
 def add_improvement(request):
-	Upgrade.objects.create(name=request.POST['name'])
+	Upgrade.objects.create(name=request.POST['name'], cost=request.POST['cost'])
 	return redirect('/upgrade')
 
 def leaderboard(request):

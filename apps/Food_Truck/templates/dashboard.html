@@ -32,11 +32,11 @@
 			</div>
 		</nav>
 		<div id="main">
-			<h1>{{user.trucks.name}}</h1>	
+			<h1>{{user.trucks.first.name}}</h1>	
 		</div>
 		<div id="truck">
-			{%for product in products%}
 			<p>Your Shop</p>
+			{% for product in products|slice:":5" %}
 			<div class="card">
 				<h5>{{product.product_name}}</h5>
 				<p>Price: ${{product.sell_price}}</p>

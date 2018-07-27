@@ -12,6 +12,7 @@
 		<thead>
 			<th>Upgrade</th>
 			<th>Purchased</th>
+			<th>Cost</th>
 		</thead>
 		<tbody>
 		{%for upgrade in upgrades%}
@@ -23,6 +24,7 @@
 				{%if upgrade.activate == True%}
 				<td>Yes</td>
 				{%endif%}
+				<td>{{upgrade.cost}}</td>
 		</tr>
 		{%endfor%}
 	</table>
@@ -32,6 +34,7 @@
 	<form action='/add_improvement' method='post'>
 		{%csrf_token%}
 		<p>Upgrade Name:<input type="text" name="name"></p>
+		<p>Upgrade Cost:<input type="number" name="cost"></p>
 		<button type='submit'>Create</button>
 	</form>
 </body>
