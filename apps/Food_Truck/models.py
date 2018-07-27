@@ -112,15 +112,3 @@ class Upgrade(models.Model):
 	activate = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
-
-
-class Sales_Slot(models.Model):
-	truck = models.OneToOneField(Truck)
-	slot_1 = models.ForeignKey(Product, null=True, default=None, related_name='slot1')
-	slot_2 = models.ForeignKey(Product, null=True, default=None, related_name='slot2')
-	slot_3 = models.ForeignKey(Product, null=True, default=None, related_name='slot3')
-	slot_4 = models.ForeignKey(Product, null=True, default=None, related_name='slot4')
-	slot_5 = models.ForeignKey(Product, null=True, default=None, related_name='slot5')
-	slot_6 = models.ForeignKey(Product, null=True, default=None, related_name='slot6')
-	slot_7 = models.ForeignKey(Product, null=True, default=None, related_name='slot7')
-	slot_8 = models.ForeignKey(Product, null=True, default=None, related_name='slot8')

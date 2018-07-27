@@ -32,35 +32,17 @@
 			</div>
 		</nav>
 		<div id="main">
-			<h1>Your Truck Name</h1>	
+			<h1>{{user.trucks.name}}</h1>	
 		</div>
 		<div id="truck">
+			{%for product in products%}
 			<p>Your Shop</p>
 			<div class="card">
-				<h5>Item Name</h5>
-				<p>desc</p>
-				<p>Number</p>
+				<h5>{{product.product_name}}</h5>
+				<p>Price: ${{product.sell_price}}</p>
+				<p>Stock: {{product.stock}}</p>
 			</div>
-			<div class="card">
-				<h5>Item Name</h5>
-				<p>desc</p>
-				<p>Number</p>
-			</div>
-			<div class="card">
-				<h5>Item Name</h5>
-				<p>desc</p>
-				<p>Number</p>
-			</div>
-			<div class="card">
-				<h5>Item Name</h5>
-				<p>desc</p>
-				<p>Number</p>
-			</div>
-			<div class="card">
-				<h5>Item Name</h5>
-				<p>desc</p>
-				<p>Number</p>
-			</div>
+			{%endfor%}
 			<div>
 				<form action='/move' method='POST'>
 				{%csrf_token%}

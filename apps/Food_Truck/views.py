@@ -92,7 +92,8 @@ def dashboard(request):
         'icon' : city_weather['weather'][0]['icon'],
 		'date' : now.strftime("%Y/%m/%d"),
 		'locations' : Location.objects.all(),
-		'user': User.objects.get(id=request.session['id'])
+		'user': User.objects.get(id=request.session['id']),
+		'products': Product.objects.exclude(stock=0)
     }
 	request.session['temperature'] = city_weather['main']['temp']
 
