@@ -385,7 +385,7 @@ def report(request):
 
 	context = {
 		"user" : User.objects.get(id = request.session['id']).__dict__,
-		'reports': Report.objects.filter(owner=User.objects.get(id=request.session['id'])).last(),
+		'reports': Report.objects.filter(owner=User.objects.get(id=request.session['id'])).all(),
 	}
 
 

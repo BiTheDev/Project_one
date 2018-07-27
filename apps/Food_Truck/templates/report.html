@@ -10,28 +10,27 @@
    <script type="text/javascript" src="{% static "fusioncharts/themes/fusioncharts.theme.fint.js" %}"></script> -->
 </head>
 <body>
-	<div>
-	<a href="/dashboard">Back</a>
+	<a href="/dashboard" class="btn btn-primary">Back</a>
+	{% for report in reports%}
 	<div class="card">
-		<p>Revenue:{{reports.revenue}}</p>
-		<p>Cost:{{reports.cost}}</p>
-		<p>Profit:{{reports.profit}}</p>
-		<p>Item Sold:{{reports.item_sold}}</p>
-		<p>Item Spoiled:{{reports.item_unsold}}</p>
-		<p>Report Date: {{reports.created_at}}</p>
+		<p>Revenue:{{report.revenue}}</p>
+		<p>Cost:{{report.cost}}</p>
+		<p>Profit:{{report.profit}}</p>
+		<p>Item Sold:{{report.item_sold}}</p>
+		<p>Item Spoiled:{{report.item_unsold}}</p>
+		<p>Report Date: {{report.created_at}}</p>
 	</div>
-</div>
+	{% endfor %}	
 <!-- <div id="chart-1"></div>
 {{ output|safe }} -->
 <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-
+</div>
 <script type="text/javascript">
 	window.onload =  function (){
-	var selected_year = {{ reports.created_at|date:"Y" }}
-    var selected_month = {{ reports.created_at|date:"m" }} - 1;
-	var selected_day = {{ reports.created_at|date:"d"}}
-	var profit = {{reports.profit}}
+		
+	var date = new Date(2018,07,26)
 	var chart = new CanvasJS.Chart("chartContainer", {
+		animationEnabled: true,
 		title: {
 			text: "Financial Data"
 		},
@@ -41,29 +40,30 @@
 		axisY2: {
 			title: "Profit",
 			prefix: "$",
+			ValueFormatString: "###,###,###",
 		},
-		toolTip: {
-			shared: true
-		},
-		legend: {
-			cursor: "pointer",
-			verticalAlign: "top",
-			horizontalAlign: "center",
-			dockInsidePlotArea: true,
-			itemclick: toogleDataSeries
-		},
+		
+		// legend: {
+		// 	cursor: "pointer",
+		// 	verticalAlign: "top",
+		// 	horizontalAlign: "center",
+		// 	dockInsidePlotArea: true,
+		// 	itemclick: toogleDataSeries
+		// },
 		data: [{
-			type:"line",
-			axisYType: "secondary",
-			name:"{{user.nickname}}",
-			showInLegend: true,
-			markerSize: 0,
-			yValueFormatString: "$###,###,###",
-			dataPoints: [
-				{x: new Date(selected_year, selected_month, selected_day), y: profit},
-		],
-		}],
-	});
+		type: "scatter",
+		axisYType: "secondary",
+		name: "{{user.nickname}}",
+		toolTipContent: "<span>{x} , profit : ${y}</span>",
+		showInLegend: true,
+		dataPoints: [
+			{% for report in reports %}
+			{ x: new Date({{ report.created_at|date:"Y" }}, {{ report.created_at|date:"m" }} -1, {{ report.created_at|date:"d"}}), y: {{report.profit}} },
+			{% endfor %}	
+		]
+	}]
+});
+	// {x: new Date(selected_year, selected_month, selected_day), y: profit},
 
 chart.render();
 
@@ -74,7 +74,7 @@ function toogleDataSeries(e){
 		e.dataSeries.visible = true;
 	}
 	chart.render();
-}
+	}
 }
 </script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
